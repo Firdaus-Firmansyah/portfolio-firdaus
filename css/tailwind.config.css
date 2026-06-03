@@ -1,0 +1,27 @@
+/* ═══════════════════════════════════════════════════
+   TAILWIND CSS CONFIGURATION
+   Loaded inline via <script> in index.html
+   because Tailwind CDN requires inline config.
+
+   This file is for DOCUMENTATION only.
+   The actual config is in index.html <script> tag.
+   ═══════════════════════════════════════════════════ */
+
+/*
+tailwind.config = {
+    theme: {
+        extend: {
+            fontFamily: {
+                'grotesk':   ['Anton', 'sans-serif'],     // Headings & nav
+                'condiment': ['Condiment', 'cursive'],     // Cursive accents
+                'inter':     ['Inter', 'sans-serif'],      // Body text
+            },
+            colors: {
+                'bg':    '#010828',   // Deep navy background
+                'cream': '#EFF4FF',   // Off-white text
+                'neon':  '#6FFF00',   // Bright green accents
+            }
+        }
+    }
+}
+*/

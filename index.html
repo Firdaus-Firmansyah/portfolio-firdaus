@@ -7,12 +7,15 @@
     <title>FIRDAUS FIRMANSYAH — Portfolio 2026</title>
     <meta name="description"
         content="Portfolio interaktif Firdaus Firmansyah — UI/UX Designer, Front-End Developer. Space-themed kinetic typography with liquid glass UI.">
+
+    <!-- ═══ FONTS (Google Fonts) ═══ -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Condiment&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- ═══ TAILWIND CSS (CDN) ═══ -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <!-- Tailwind config must remain inline (CDN requirement) -->
     <script>
         tailwind.config = {
             theme: {
@@ -31,942 +34,616 @@
             }
         }
     </script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { scrollbar-width: thin; scrollbar-color: #6FFF00 #010828; }
+    <!-- ═══ GSAP ANIMATION LIBRARY (CDN) ═══ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #010828;
-            color: #EFF4FF;
-            overflow-x: hidden;
-        }
-
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: #010828; }
-        ::-webkit-scrollbar-thumb { background: #6FFF00; border-radius: 3px; }
-
-        /* ─── LIQUID GLASS ─── */
-        .liquid-glass {
-            background: rgba(255, 255, 255, 0.01);
-            background-blend-mode: luminosity;
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border: none;
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .liquid-glass::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            padding: 1.4px;
-            background: linear-gradient(180deg,
-                rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
-                rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
-                rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        /* ─── TEXTURE OVERLAY ─── */
-        .texture-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 50;
-            pointer-events: none;
-            opacity: 0.08;
-            mix-blend-mode: lighten;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-            background-size: cover;
-        }
-
-        /* ─── VIDEO SECTION ─── */
-        .video-bg {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-        .video-section {
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* ─── MARQUEE ─── */
-        .marquee-track {
-            display: flex;
-            width: max-content;
-            animation: marqueeLeft 25s linear infinite;
-        }
-        .marquee-track-reverse {
-            display: flex;
-            width: max-content;
-            animation: marqueeRight 30s linear infinite;
-        }
-        @keyframes marqueeLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        @keyframes marqueeRight {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
-        }
-        .marquee-track:hover,
-        .marquee-track-reverse:hover { animation-play-state: paused; }
-
-        /* ─── SKILLS MARQUEE ─── */
-        .skills-row { display: flex; width: max-content; gap: 1rem; }
-        .skills-row-left { animation: marqueeLeft 30s linear infinite; }
-        .skills-row-right { animation: marqueeRight 35s linear infinite; }
-        .skills-row-fast { animation: marqueeLeft 22s linear infinite; }
-
-        /* ─── TIMELINE ─── */
-        .timeline-year {
-            font-family: 'Anton', sans-serif;
-            font-size: clamp(2.5rem, 7vw, 5rem);
-            -webkit-text-stroke: 1.5px rgba(239, 244, 255, 0.2);
-            color: transparent;
-            line-height: 1;
-            transition: all 0.4s;
-        }
-        .timeline-row:hover .timeline-year {
-            -webkit-text-stroke: 0px;
-            color: #6FFF00;
-        }
-        .timeline-row:hover .timeline-detail { color: #EFF4FF; }
-
-        /* ─── PROJECT CARD ─── */
-        .project-card {
-            transition: all 0.3s ease;
-        }
-        .project-card:hover {
-            background: rgba(255, 255, 255, 0.08) !important;
-        }
-        .project-card:hover .project-title { color: #6FFF00; }
-        .project-card:hover .project-arrow {
-            transform: scale(1.1);
-        }
-
-        /* ─── SKILL TAG ─── */
-        .skill-tag {
-            padding: 0.5rem 1.4rem;
-            border-radius: 100px;
-            font-size: clamp(0.8rem, 1.6vw, 1.1rem);
-            font-weight: 500;
-            white-space: nowrap;
-            transition: all 0.3s;
-            color: rgba(239, 244, 255, 0.6);
-            font-family: 'Inter', sans-serif;
-        }
-        .skill-tag:hover {
-            color: #6FFF00;
-            background: rgba(111, 255, 0, 0.08);
-        }
-
-        /* ─── ORG MARQUEE ─── */
-        .org-row { display: flex; width: max-content; gap: 2.5rem; align-items: center; }
-        .org-row-left { animation: marqueeLeft 26s linear infinite; }
-        .org-row-right { animation: marqueeRight 30s linear infinite; }
-        .org-item {
-            font-family: 'Anton', sans-serif;
-            font-size: clamp(1rem, 2.5vw, 1.6rem);
-            white-space: nowrap;
-            color: rgba(239, 244, 255, 0.25);
-            transition: color 0.3s;
-            text-transform: uppercase;
-        }
-        .org-item:hover { color: #6FFF00; }
-        .org-separator { color: rgba(111, 255, 0, 0.3); font-size: 0.8rem; }
-
-        /* ─── CONTACT ─── */
-        .contact-letter {
-            display: inline-block;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-        }
-        .contact-expanded .contact-letter {
-            opacity: 0.08;
-            filter: blur(8px);
-            transform: scale(0.85) translateY(-30px);
-        }
-
-        /* ─── NAV DOT ─── */
-        .nav-dot {
-            width: 8px; height: 8px;
-            border-radius: 50%;
-            border: 1.5px solid rgba(239, 244, 255, 0.3);
-            background: transparent;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-        .nav-dot.active, .nav-dot:hover {
-            background: #6FFF00;
-            border-color: #6FFF00;
-            box-shadow: 0 0 10px rgba(111, 255, 0, 0.5);
-        }
-
-        /* ─── LOADER ─── */
-        #loader {
-            position: fixed; inset: 0; z-index: 9999;
-            background: #010828;
-            display: flex; align-items: center; justify-content: center;
-            flex-direction: column; gap: 0.8rem;
-        }
-
-        /* ─── KEYWORD ─── */
-        .keyword {
-            color: #6FFF00;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .keyword:hover {
-            text-shadow: 0 0 20px rgba(111, 255, 0, 0.4);
-            letter-spacing: 0.02em;
-        }
-
-        /* ─── CERT ITEM ─── */
-        .cert-item { transition: all 0.3s; }
-        .cert-item:hover { color: #6FFF00; padding-left: 0.5rem; }
-
-        /* ─── REVEAL ─── */
-        .reveal-text { opacity: 0; transform: translateY(50px); }
-        .reveal-char { display: inline-block; opacity: 0; transform: translateY(100%); }
-
-        @media (max-width: 768px) {
-            .timeline-year { -webkit-text-stroke: 1px rgba(239, 244, 255, 0.2); }
-        }
-    </style>
+    <!-- ═══ CUSTOM STYLES ═══ -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<!-- TEXTURE OVERLAY -->
-<div class="texture-overlay"></div>
+    <!-- ═══ TEXTURE OVERLAY ═══
+         Full-screen noise texture for visual depth -->
+    <div class="texture-overlay"></div>
 
-<!-- LOADER -->
-<div id="loader">
-    <div class="font-grotesk text-[clamp(2rem,7vw,5rem)] uppercase tracking-wider" id="loader-text"></div>
-    <div class="font-condiment text-neon text-xl opacity-80" id="loader-sub"></div>
-</div>
+    <!-- ═══ LOADER ═══
+         Word cycling intro animation (FIRDAUS → FIRMANSYAH → UI/UX → PORTFOLIO) -->
+    <div id="loader">
+        <div class="font-grotesk text-[clamp(2rem,7vw,5rem)] uppercase tracking-wider" id="loader-text"></div>
+        <div class="font-condiment text-neon text-xl opacity-80" id="loader-sub"></div>
+    </div>
 
-<!-- SIDE NAV -->
-<nav id="side-nav" class="fixed right-5 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3 opacity-0">
-    <div class="nav-dot active" data-target="hero" title="Home"></div>
-    <div class="nav-dot" data-target="about" title="About"></div>
-    <div class="nav-dot" data-target="education" title="Education"></div>
-    <div class="nav-dot" data-target="experience" title="Experience"></div>
-    <div class="nav-dot" data-target="projects" title="Projects"></div>
-    <div class="nav-dot" data-target="orgs" title="Organizations"></div>
-    <div class="nav-dot" data-target="skills" title="Skills"></div>
-    <div class="nav-dot" data-target="certs" title="Certifications"></div>
-    <div class="nav-dot" data-target="contact" title="Contact"></div>
-</nav>
-
-<!-- ═══════════ MAIN ═══════════ -->
-<main id="main-content" style="display:none;">
-
-    <!-- ══════ 1. HERO ══════ -->
-    <section id="hero" class="video-section min-h-screen flex flex-col rounded-b-[32px]">
-        <video class="video-bg" autoplay loop muted playsinline>
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4" type="video/mp4">
-        </video>
-
-        <!-- NAVBAR -->
-        <header class="relative z-10 w-full max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 pt-6 flex items-center justify-between">
-            <span class="font-grotesk text-cream text-base uppercase tracking-wide">Firdaus.Dev</span>
-            <nav class="liquid-glass rounded-[28px] px-8 lg:px-[52px] py-4 lg:py-[24px] hidden lg:block">
-                <ul class="flex gap-8">
-                    <li><a href="#hero" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Home</a></li>
-                    <li><a href="#about" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">About</a></li>
-                    <li><a href="#projects" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Projects</a></li>
-                    <li><a href="#skills" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Skills</a></li>
-                    <li><a href="#contact" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Contact</a></li>
-                </ul>
-            </nav>
-            <!-- Mobile menu button -->
-            <button id="mobile-menu-btn" class="lg:hidden liquid-glass rounded-xl p-3 hover:bg-white/10 transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            </button>
-        </header>
-
-        <!-- Hero Content -->
-        <div class="relative z-10 flex-1 flex flex-col justify-end max-w-[1831px] mx-auto w-full px-5 md:px-10 lg:px-16 pb-16 md:pb-24">
-            <div class="relative lg:ml-16 max-w-[850px]">
-                <h1 id="hero-name" class="font-grotesk text-[clamp(2.8rem,10vw,6rem)] uppercase leading-[1.05] md:leading-[1] text-cream">
-                    <span class="block overflow-hidden"><span class="reveal-char">F</span><span class="reveal-char">I</span><span class="reveal-char">R</span><span class="reveal-char">D</span><span class="reveal-char">A</span><span class="reveal-char">U</span><span class="reveal-char">S</span></span>
-                    <span class="block overflow-hidden"><span class="reveal-char">F</span><span class="reveal-char">I</span><span class="reveal-char">R</span><span class="reveal-char">M</span><span class="reveal-char">A</span><span class="reveal-char">N</span><span class="reveal-char">S</span><span class="reveal-char">Y</span><span class="reveal-char">A</span><span class="reveal-char">H</span></span>
-                </h1>
-                <!-- Cursive accent -->
-                <span class="font-condiment text-neon text-[clamp(1.5rem,4vw,3rem)] absolute -right-2 md:right-4 bottom-2 md:bottom-4 -rotate-1 mix-blend-exclusion opacity-90 pointer-events-none">
-                    Portfolio 2026
-                </span>
-            </div>
-
-            <!-- Role subtitle -->
-            <p class="font-grotesk text-cream/60 text-[clamp(0.7rem,1.5vw,0.9rem)] uppercase tracking-[0.4em] mt-6 lg:ml-16">
-                UI/UX Designer · Front-End Developer · Digital Creative
-            </p>
-
-            <!-- Social icons mobile -->
-            <div class="flex gap-3 mt-8 lg:hidden justify-center">
-                <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                </a>
-                <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-                </a>
-                <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Social icons desktop -->
-        <div class="hidden lg:flex flex-col gap-3 fixed top-32 right-16 z-40">
-            <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-            </a>
-        </div>
-    </section>
+    <!-- ═══ SIDE NAVIGATION DOTS ═══
+         Fixed right-side dots for section tracking & quick navigation -->
+    <nav id="side-nav" class="fixed right-5 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3 opacity-0">
+        <div class="nav-dot active" data-target="hero" title="Home"></div>
+        <div class="nav-dot" data-target="about" title="About"></div>
+        <div class="nav-dot" data-target="education" title="Education"></div>
+        <div class="nav-dot" data-target="experience" title="Experience"></div>
+        <div class="nav-dot" data-target="projects" title="Projects"></div>
+        <div class="nav-dot" data-target="orgs" title="Organizations"></div>
+        <div class="nav-dot" data-target="skills" title="Skills"></div>
+        <div class="nav-dot" data-target="certs" title="Certifications"></div>
+        <div class="nav-dot" data-target="contact" title="Contact"></div>
+    </nav>
 
 
-    <!-- ══════ 2. ABOUT ══════ -->
-    <section id="about" class="video-section min-h-screen flex items-center">
-        <video class="video-bg" autoplay loop muted playsinline>
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_151551_992053d1-3d3e-4b8c-abac-45f22158f411.mp4" type="video/mp4">
-        </video>
+    <!-- ═══════════════════════════════════════════════════
+         MAIN CONTENT (hidden until loader completes)
+         ═══════════════════════════════════════════════════ -->
+    <main id="main-content" style="display:none;">
 
-        <div class="relative z-10 max-w-[1831px] mx-auto w-full px-5 md:px-10 lg:px-16 py-16 md:py-24">
-            <!-- Top row -->
-            <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
-                <!-- Heading -->
-                <div class="relative">
-                    <h2 class="font-grotesk text-[clamp(2rem,6vw,3.75rem)] uppercase leading-[1.1] text-cream reveal-text">
-                        Hello!<br>I'm Firdaus
-                    </h2>
-                    <span class="font-condiment text-neon text-[clamp(2rem,5vw,4.25rem)] absolute -bottom-2 -right-4 md:right-0 rotate-[-2deg] mix-blend-exclusion opacity-90 pointer-events-none">
-                        Firmansyah
+        <!-- ══════════════════════════════════════════
+             SECTION 1: HERO
+             Full viewport with video background
+             ══════════════════════════════════════════ -->
+        <section id="hero" class="video-section min-h-screen flex flex-col rounded-b-[32px]">
+            <video class="video-bg" autoplay loop muted playsinline>
+                <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4" type="video/mp4">
+            </video>
+
+            <!-- Navbar -->
+            <header class="relative z-10 w-full max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 pt-6 flex items-center justify-between">
+                <span class="font-grotesk text-cream text-base uppercase tracking-wide">Firdaus.Dev</span>
+                <nav class="liquid-glass rounded-[28px] px-8 lg:px-[52px] py-4 lg:py-[24px] hidden lg:block">
+                    <ul class="flex gap-8">
+                        <li><a href="#hero" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Home</a></li>
+                        <li><a href="#about" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">About</a></li>
+                        <li><a href="#projects" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Projects</a></li>
+                        <li><a href="#skills" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Skills</a></li>
+                        <li><a href="#contact" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Contact</a></li>
+                    </ul>
+                </nav>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="lg:hidden liquid-glass rounded-xl p-3 hover:bg-white/10 transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                </button>
+            </header>
+
+            <!-- Hero content: Giant name + role subtitle -->
+            <div class="relative z-10 flex-1 flex flex-col justify-end max-w-[1831px] mx-auto w-full px-5 md:px-10 lg:px-16 pb-16 md:pb-24">
+                <div class="relative lg:ml-16 max-w-[850px]">
+                    <h1 id="hero-name" class="font-grotesk text-[clamp(2.8rem,10vw,6rem)] uppercase leading-[1.05] md:leading-[1] text-cream">
+                        <span class="block overflow-hidden"><span class="reveal-char">F</span><span class="reveal-char">I</span><span class="reveal-char">R</span><span class="reveal-char">D</span><span class="reveal-char">A</span><span class="reveal-char">U</span><span class="reveal-char">S</span></span>
+                        <span class="block overflow-hidden"><span class="reveal-char">F</span><span class="reveal-char">I</span><span class="reveal-char">R</span><span class="reveal-char">M</span><span class="reveal-char">A</span><span class="reveal-char">N</span><span class="reveal-char">S</span><span class="reveal-char">Y</span><span class="reveal-char">A</span><span class="reveal-char">H</span></span>
+                    </h1>
+                    <!-- Cursive accent overlay -->
+                    <span class="font-condiment text-neon text-[clamp(1.5rem,4vw,3rem)] absolute -right-2 md:right-4 bottom-2 md:bottom-4 -rotate-1 mix-blend-exclusion opacity-90 pointer-events-none">
+                        Portfolio 2026
                     </span>
                 </div>
 
-                <!-- Intro paragraph -->
-                <p class="font-mono text-cream text-[14px] md:text-[16px] uppercase leading-relaxed max-w-[320px] reveal-text">
-                    A creative technologist crafting digital experiences at the intersection of design and code.
-                    Passionate about user-centered solutions and visual storytelling.
+                <!-- Role subtitle -->
+                <p class="font-grotesk text-cream/60 text-[clamp(0.7rem,1.5vw,0.9rem)] uppercase tracking-[0.4em] mt-6 lg:ml-16">
+                    UI/UX Designer · Front-End Developer · Digital Creative
                 </p>
-            </div>
 
-            <!-- Bio section -->
-            <div class="mt-16 md:mt-24 max-w-4xl reveal-text">
-                <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-6">01 — Tentang Saya</p>
-                <p class="text-lg md:text-2xl lg:text-3xl font-inter font-light leading-relaxed text-cream/80">
-                    Mahasiswa <span class="keyword">Teknik Informatika</span> semester 6 di UHAMKA dengan ketertarikan kuat dalam
-                    <span class="keyword">UI/UX Design</span>, <span class="keyword">Front-End Development</span>, dan konten kreatif digital.
-                    Dipercaya oleh universitas sebagai bagian dari Tim Project resmi untuk mengembangkan
-                    <span class="keyword">virtual environment (Metaverse)</span> kampus di platform Roblox.
-                </p>
-                <p class="text-lg md:text-2xl lg:text-3xl font-inter font-light leading-relaxed text-cream/80 mt-6">
-                    Aktif dalam <span class="keyword">Core Team DSC UHAMKA</span> sebagai UI/UX Designer.
-                    Berpengalaman sebagai <span class="keyword">pembicara workshop</span>,
-                    <span class="keyword">content editor</span>, dan <span class="keyword">penulis jurnal nasional</span>.
-                </p>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ══════ 3. EDUCATION ══════ -->
-    <section id="education" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
-        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">02 — Pendidikan</p>
-
-        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
-            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2023</div>
-            <div>
-                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">S1 Teknik Informatika</div>
-                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Universitas Muhammadiyah Prof. Dr. Hamka (UHAMKA)</div>
-                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">2023 – Sekarang</div>
-            </div>
-        </div>
-
-        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
-            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2020</div>
-            <div>
-                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">SMK 3 Perguruan Cikini</div>
-                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Jurusan Multimedia</div>
-                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">2020 – 2023</div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ══════ 4. EXPERIENCE ══════ -->
-    <section id="experience" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
-        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">03 — Pengalaman Profesional</p>
-
-        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
-            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2025</div>
-            <div>
-                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">UI/UX & Asset Designer</div>
-                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Tim Project Program Roblox UHAMKA — Penugasan Resmi Wakil Rektor IV</div>
-                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Okt 2025 – Jan 2026</div>
-            </div>
-        </div>
-
-        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
-            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2024</div>
-            <div>
-                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">Graphic Design & Editor Konten</div>
-                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Tim Promosi FTII UHAMKA — Magang</div>
-                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Aug 2024 – Aug 2026</div>
-            </div>
-        </div>
-
-        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
-            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2024</div>
-            <div>
-                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">Petugas KPPS</div>
-                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Komisi Pemilihan Umum (KPU) — Paruh Waktu</div>
-                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Jan – Feb 2024</div>
-            </div>
-        </div>
-
-        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
-            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2022</div>
-            <div>
-                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">PKL — Rainbow Foto Studio</div>
-                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Praktik Kerja Lapangan</div>
-                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Jul – Sep 2022</div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ══════ 5. PROJECTS (NFT-style grid) ══════ -->
-    <section id="projects" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
-        <!-- Header Row -->
-        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12 md:mb-16">
-            <div class="reveal-text">
-                <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-6">04 — Proyek</p>
-                <h2 class="font-grotesk text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1.1] text-cream">
-                    Collection of<br>
-                    <span class="ml-12 md:ml-24 lg:ml-32"><span class="font-condiment text-neon normal-case">Creative</span> Projects</span>
-                </h2>
-            </div>
-            <div class="reveal-text">
-                <div class="flex items-end gap-2 font-grotesk uppercase text-cream cursor-pointer group">
-                    <span class="text-[clamp(2rem,4vw,3.75rem)] leading-none">8</span>
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-[clamp(1rem,2vw,2rem)]">Total</span>
-                        <span class="text-[clamp(1rem,2vw,2rem)]">Projects</span>
-                    </div>
-                </div>
-                <div class="h-[6px] md:h-[8px] lg:h-[10px] bg-neon rounded-full w-full mt-2"></div>
-            </div>
-        </div>
-
-        <!-- Project Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            <!-- Card 1 -->
-            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
-                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
-                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
-                        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_053923_22c0a6a5-313c-474c-85ff-3b50d25e944a.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
-                    <div>
-                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">Official Website GDSC UHAMKA</p>
-                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">UI/UX Design · Mobile-First · Material Design</p>
-                    </div>
-                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-                    </div>
+                <!-- Social icons (mobile) -->
+                <div class="flex gap-3 mt-8 lg:hidden justify-center">
+                    <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    </a>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
-                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
-                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
-                        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_054411_511c1b7a-fb2f-42ef-bf6c-32c0b1a06e79.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
-                    <div>
-                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">Roblox UHAMKA Beta</p>
-                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">GUI & Asset Design · Virtual Campus · Metaverse</p>
-                    </div>
-                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
-                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
-                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
-                        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055427_ac7035b5-9f3b-4289-86fc-941b2432317d.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
-                    <div>
-                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">OLU UHAMKA Redesign</p>
-                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">UX Research · Mobile App · Jurnal Nasional</p>
-                    </div>
-                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
-                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/60 via-bg to-neon/10 flex items-center justify-center">
-                        <span class="font-grotesk text-cream/20 text-4xl uppercase">Hydra</span>
-                    </div>
-                </div>
-                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
-                    <div>
-                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"Hydra" Water Reminder App</p>
-                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">End-to-end UI/UX · Personalized Onboarding</p>
-                    </div>
-                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 5 -->
-            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
-                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
-                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/60 via-bg to-blue-500/10 flex items-center justify-center">
-                        <span class="font-grotesk text-cream/20 text-4xl uppercase">Ammar</span>
-                    </div>
-                </div>
-                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
-                    <div>
-                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"Ammar Barbershop" Booking</p>
-                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">Web App · Dark Theme · Gold Accents</p>
-                    </div>
-                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Card 6 -->
-            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
-                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
-                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-bg to-neon/10 flex items-center justify-center">
-                        <span class="font-grotesk text-cream/20 text-4xl uppercase">LexiPlay</span>
-                    </div>
-                </div>
-                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
-                    <div>
-                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"LexiPlay" Inclusive Literacy</p>
-                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">EdTech · Accessibility · Gamification</p>
-                    </div>
-                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- ══════ 6. ORGS & AWARDS ══════ -->
-    <section id="orgs" class="bg-bg py-20 md:py-32 overflow-hidden">
-        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 px-5 md:px-10 reveal-text">05 — Organisasi & Penghargaan</p>
-
-        <div class="space-y-3 reveal-text mb-16">
-            <div class="overflow-hidden">
-                <div class="org-row org-row-left">
-                    <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
-                    <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
-                    <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
-                    <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
-                    <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
-                    <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
-                    <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
-                    <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
-                    <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
-                    <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
-                    <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
-                    <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <div class="org-row org-row-right">
-                    <span class="org-item">Juara 1 Desain Terbaik GDGOC</span><span class="org-separator">●</span>
-                    <span class="org-item">Juara 2 Sayembara Logo FTII</span><span class="org-separator">●</span>
-                    <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
-                    <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
-                    <span class="org-item">HAKI Video Edukasi</span><span class="org-separator">●</span>
-                    <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span class="org-separator">●</span>
-                    <span class="org-item">Juara 1 Desain Terbaik GDGOC</span><span class="org-separator">●</span>
-                    <span class="org-item">Juara 2 Sayembara Logo FTII</span><span class="org-separator">●</span>
-                    <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
-                    <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
-                    <span class="org-item">HAKI Video Edukasi</span><span class="org-separator">●</span>
-                    <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span class="org-separator">●</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Detailed awards -->
-        <div class="max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 space-y-1">
-            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 1 Desain Terbaik — Seminar UI/UX Deep Dive (GDGOC STT NF) — Des 2024</div>
-            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 2 Sayembara Logo Milad FTII ke-27 — Maret 2024</div>
-            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 1 Konten TikTok Baitul Arqom UHAMKA — Okt 2023</div>
-            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">📘 HAKI Buku "Pengantar TI" — ISBN: 978-623-10-3247-8 — Sep 2024</div>
-            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🎬 HAKI Video Edukasi Peternakan Ikan — Okt 2024</div>
-        </div>
-    </section>
-
-
-    <!-- ══════ 7. SKILLS ══════ -->
-    <section id="skills" class="bg-bg py-20 md:py-32 overflow-hidden">
-        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 px-5 md:px-10 reveal-text">06 — Keahlian</p>
-
-        <p class="text-cream/25 font-mono text-[10px] uppercase tracking-widest px-5 md:px-10 mb-5 reveal-text">Hard Skills</p>
-        <div class="space-y-3 mb-14 reveal-text">
-            <div class="overflow-hidden">
-                <div class="skills-row skills-row-left">
-                    <span class="skill-tag liquid-glass rounded-full">Figma</span>
-                    <span class="skill-tag liquid-glass rounded-full">Adobe Illustrator</span>
-                    <span class="skill-tag liquid-glass rounded-full">Wireframing</span>
-                    <span class="skill-tag liquid-glass rounded-full">Prototyping</span>
-                    <span class="skill-tag liquid-glass rounded-full">Design System</span>
-                    <span class="skill-tag liquid-glass rounded-full">HTML</span>
-                    <span class="skill-tag liquid-glass rounded-full">CSS</span>
-                    <span class="skill-tag liquid-glass rounded-full">JavaScript</span>
-                    <span class="skill-tag liquid-glass rounded-full">Figma</span>
-                    <span class="skill-tag liquid-glass rounded-full">Adobe Illustrator</span>
-                    <span class="skill-tag liquid-glass rounded-full">Wireframing</span>
-                    <span class="skill-tag liquid-glass rounded-full">Prototyping</span>
-                    <span class="skill-tag liquid-glass rounded-full">Design System</span>
-                    <span class="skill-tag liquid-glass rounded-full">HTML</span>
-                    <span class="skill-tag liquid-glass rounded-full">CSS</span>
-                    <span class="skill-tag liquid-glass rounded-full">JavaScript</span>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <div class="skills-row skills-row-right">
-                    <span class="skill-tag liquid-glass rounded-full">Roblox Studio</span>
-                    <span class="skill-tag liquid-glass rounded-full">CapCut</span>
-                    <span class="skill-tag liquid-glass rounded-full">Microsoft Office</span>
-                    <span class="skill-tag liquid-glass rounded-full">Visual Content Editing</span>
-                    <span class="skill-tag liquid-glass rounded-full">User Research</span>
-                    <span class="skill-tag liquid-glass rounded-full">Design Thinking</span>
-                    <span class="skill-tag liquid-glass rounded-full">Roblox Studio</span>
-                    <span class="skill-tag liquid-glass rounded-full">CapCut</span>
-                    <span class="skill-tag liquid-glass rounded-full">Microsoft Office</span>
-                    <span class="skill-tag liquid-glass rounded-full">Visual Content Editing</span>
-                    <span class="skill-tag liquid-glass rounded-full">User Research</span>
-                    <span class="skill-tag liquid-glass rounded-full">Design Thinking</span>
-                </div>
-            </div>
-            <div class="overflow-hidden">
-                <div class="skills-row skills-row-fast">
-                    <span class="skill-tag liquid-glass rounded-full">Mobile-First Design</span>
-                    <span class="skill-tag liquid-glass rounded-full">Material Design</span>
-                    <span class="skill-tag liquid-glass rounded-full">Responsive Web</span>
-                    <span class="skill-tag liquid-glass rounded-full">Accessibility (a11y)</span>
-                    <span class="skill-tag liquid-glass rounded-full">Inclusive Design</span>
-                    <span class="skill-tag liquid-glass rounded-full">Gamification</span>
-                    <span class="skill-tag liquid-glass rounded-full">Mobile-First Design</span>
-                    <span class="skill-tag liquid-glass rounded-full">Material Design</span>
-                    <span class="skill-tag liquid-glass rounded-full">Responsive Web</span>
-                    <span class="skill-tag liquid-glass rounded-full">Accessibility (a11y)</span>
-                    <span class="skill-tag liquid-glass rounded-full">Inclusive Design</span>
-                    <span class="skill-tag liquid-glass rounded-full">Gamification</span>
-                </div>
-            </div>
-        </div>
-
-        <p class="text-cream/25 font-mono text-[10px] uppercase tracking-widest px-5 md:px-10 mb-5 reveal-text">Soft Skills</p>
-        <div class="space-y-3 reveal-text">
-            <div class="overflow-hidden">
-                <div class="skills-row skills-row-right" style="animation-duration:38s">
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Manajemen Waktu</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Cross-functional Teamwork</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Public Speaking</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Berpikir Kritis</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Komunikasi Efektif</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Problem Solving</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Manajemen Waktu</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Cross-functional Teamwork</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Public Speaking</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Berpikir Kritis</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Komunikasi Efektif</span>
-                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Problem Solving</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ══════ 8. CERTIFICATIONS ══════ -->
-    <section id="certs" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
-        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">07 — Sertifikasi</p>
-
-        <div class="space-y-1">
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
-                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Mar 2025</span>
-                <span class="text-cream/70 text-base font-inter font-medium">UX Fundamentals — <span class="text-cream/40">IBM SkillsBuild</span></span>
-            </div>
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
-                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Des 2024</span>
-                <span class="text-cream/70 text-base font-inter font-medium">UI/UX Deep Dive — <span class="text-cream/40">GDGOC STT NF</span></span>
-            </div>
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
-                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Des 2023</span>
-                <span class="text-cream/70 text-base font-inter font-medium">Design System in UI Design — <span class="text-cream/40">MySkill</span></span>
-            </div>
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
-                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Nov 2023</span>
-                <span class="text-cream/70 text-base font-inter font-medium">Wireframing in UI/UX Design — <span class="text-cream/40">MySkill</span></span>
-            </div>
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
-                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Sep 2023</span>
-                <span class="text-cream/70 text-base font-inter font-medium">UX Research — <span class="text-cream/40">MySkill</span></span>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- ══════ 9. CONTACT (CTA - Video BG) ══════ -->
-    <section id="contact" class="video-section relative">
-        <video class="w-full h-auto block" autoplay loop muted playsinline>
-            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055729_72d66327-b59e-4ae9-bb70-de6ccb5ecdb0.mp4" type="video/mp4">
-        </video>
-
-        <!-- CTA Overlay -->
-        <div class="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[15%] px-5">
-            <div class="relative text-right">
-                <span class="font-condiment text-neon text-[clamp(1.2rem,4vw,4rem)] absolute -top-8 md:-top-12 left-0 mix-blend-exclusion opacity-90 pointer-events-none">
-                    Get in touch
-                </span>
-                <div id="contact-word" class="font-grotesk text-cream text-[clamp(1.5rem,5vw,3.75rem)] uppercase leading-[1.15] cursor-pointer select-none">
-                    <span class="contact-letter block mb-3 md:mb-8">Let's Connect.</span>
-                    <span class="contact-letter block">Reveal What's</span>
-                    <span class="contact-letter block">Hidden.</span>
-                    <span class="contact-letter block">Follow The Signal.</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contact links overlay -->
-        <div id="contact-links" class="absolute inset-0 flex flex-col items-center justify-center gap-5 opacity-0 pointer-events-none transition-all duration-500 z-20">
-            <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em]">Mari Terhubung</p>
-            <div class="flex flex-wrap gap-3 justify-center">
-                <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">✉ Email</a>
-                <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" rel="noopener" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">↗ LinkedIn</a>
-                <a href="tel:+6285716489840" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">☎ +62 857-1648-9840</a>
-            </div>
-            <p class="text-cream/30 font-mono text-xs">firdifirdaus19@gmail.com</p>
-            <p class="text-cream/20 font-mono text-[10px] mt-2 cursor-pointer hover:text-neon transition-colors">Klik di mana saja untuk menutup</p>
-        </div>
-
-        <!-- Social icons bottom-left -->
-        <div class="absolute left-[5%] md:left-[8%] bottom-[8%] md:bottom-[15%] z-10 hidden lg:block">
-            <div class="liquid-glass rounded-[1.25rem] flex flex-col">
-                <a href="mailto:firdifirdaus19@gmail.com" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors border-b border-white/10">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <!-- Social icons (desktop) — fixed position -->
+            <div class="hidden lg:flex flex-col gap-3 fixed top-32 right-16 z-40">
+                <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                 </a>
-                <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors border-b border-white/10">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                 </a>
-                <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                 </a>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <!-- FOOTER -->
-    <footer class="bg-bg px-5 md:px-10 lg:px-16 py-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 max-w-[1831px] mx-auto">
-        <span class="font-grotesk text-cream/40 text-xs uppercase">© 2026 Firdaus Firmansyah</span>
-        <span class="font-condiment text-neon/40 text-lg">Liquid Glass Edition</span>
-        <span class="font-mono text-cream/30 text-[10px] uppercase tracking-wider">DKI Jakarta, Indonesia</span>
-    </footer>
+        <!-- ══════════════════════════════════════════
+             SECTION 2: ABOUT
+             Video background + bio text
+             ══════════════════════════════════════════ -->
+        <section id="about" class="video-section min-h-screen flex items-center">
+            <video class="video-bg" autoplay loop muted playsinline>
+                <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_151551_992053d1-3d3e-4b8c-abac-45f22158f411.mp4" type="video/mp4">
+            </video>
 
-</main>
+            <div class="relative z-10 max-w-[1831px] mx-auto w-full px-5 md:px-10 lg:px-16 py-16 md:py-24">
+                <!-- Heading + intro -->
+                <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
+                    <div class="relative">
+                        <h2 class="font-grotesk text-[clamp(2rem,6vw,3.75rem)] uppercase leading-[1.1] text-cream reveal-text">
+                            Hello!<br>I'm Firdaus
+                        </h2>
+                        <span class="font-condiment text-neon text-[clamp(2rem,5vw,4.25rem)] absolute -bottom-2 -right-4 md:right-0 rotate-[-2deg] mix-blend-exclusion opacity-90 pointer-events-none">
+                            Firmansyah
+                        </span>
+                    </div>
+                    <p class="font-mono text-cream text-[14px] md:text-[16px] uppercase leading-relaxed max-w-[320px] reveal-text">
+                        A creative technologist crafting digital experiences at the intersection of design and code.
+                        Passionate about user-centered solutions and visual storytelling.
+                    </p>
+                </div>
+
+                <!-- Bio paragraphs -->
+                <div class="mt-16 md:mt-24 max-w-4xl reveal-text">
+                    <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-6">01 — Tentang Saya</p>
+                    <p class="text-lg md:text-2xl lg:text-3xl font-inter font-light leading-relaxed text-cream/80">
+                        Mahasiswa <span class="keyword">Teknik Informatika</span> semester 6 di UHAMKA dengan ketertarikan kuat dalam
+                        <span class="keyword">UI/UX Design</span>, <span class="keyword">Front-End Development</span>, dan konten kreatif digital.
+                        Dipercaya oleh universitas sebagai bagian dari Tim Project resmi untuk mengembangkan
+                        <span class="keyword">virtual environment (Metaverse)</span> kampus di platform Roblox.
+                    </p>
+                    <p class="text-lg md:text-2xl lg:text-3xl font-inter font-light leading-relaxed text-cream/80 mt-6">
+                        Aktif dalam <span class="keyword">Core Team DSC UHAMKA</span> sebagai UI/UX Designer.
+                        Berpengalaman sebagai <span class="keyword">pembicara workshop</span>,
+                        <span class="keyword">content editor</span>, dan <span class="keyword">penulis jurnal nasional</span>.
+                    </p>
+                </div>
+            </div>
+        </section>
 
 
-<!-- ═══════════ JAVASCRIPT ═══════════ -->
-<script>
-    gsap.registerPlugin(ScrollTrigger);
+        <!-- ══════════════════════════════════════════
+             SECTION 3: EDUCATION
+             Timeline layout — large year + details
+             ══════════════════════════════════════════ -->
+        <section id="education" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+            <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">02 — Pendidikan</p>
 
-    const loader = document.getElementById('loader');
-    const loaderText = document.getElementById('loader-text');
-    const loaderSub = document.getElementById('loader-sub');
-    const mainContent = document.getElementById('main-content');
-    const sideNav = document.getElementById('side-nav');
+            <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+                <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2023</div>
+                <div>
+                    <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">S1 Teknik Informatika</div>
+                    <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Universitas Muhammadiyah Prof. Dr. Hamka (UHAMKA)</div>
+                    <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">2023 – Sekarang</div>
+                </div>
+            </div>
 
-    // ─── LOADER ───
-    function runLoader() {
-        const words = ['FIRDAUS', 'FIRMANSYAH', 'UI/UX', 'PORTFOLIO'];
-        const subs = ['', '', 'Designer', '2026'];
+            <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+                <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2020</div>
+                <div>
+                    <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">SMK 3 Perguruan Cikini</div>
+                    <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Jurusan Multimedia</div>
+                    <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">2020 – 2023</div>
+                </div>
+            </div>
+        </section>
 
-        const tl = gsap.timeline({
-            onComplete: () => {
-                gsap.to(loader, {
-                    yPercent: -100,
-                    duration: 0.9,
-                    ease: 'power4.inOut',
-                    onComplete: () => {
-                        loader.style.display = 'none';
-                        showMain();
-                    }
-                });
-            }
-        });
 
-        words.forEach((word, idx) => {
-            tl.to({}, {
-                duration: 0.05,
-                onStart: () => {
-                    loaderText.textContent = word;
-                    loaderSub.textContent = subs[idx];
-                },
-            })
-            .fromTo(loaderText, { opacity: 0, scale: 0.92 }, {
-                opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out',
-            })
-            .to(loaderText, {
-                opacity: 0, scale: 0.96, duration: 0.25, ease: 'power2.in', delay: 0.15
-            });
-        });
-    }
+        <!-- ══════════════════════════════════════════
+             SECTION 4: EXPERIENCE
+             Professional timeline
+             ══════════════════════════════════════════ -->
+        <section id="experience" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+            <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">03 — Pengalaman Profesional</p>
 
-    // ─── SHOW MAIN ───
-    function showMain() {
-        mainContent.style.display = 'block';
-        window.scrollTo(0, 0);
+            <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+                <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2025</div>
+                <div>
+                    <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">UI/UX &amp; Asset Designer</div>
+                    <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Tim Project Program Roblox UHAMKA — Penugasan Resmi Wakil Rektor IV</div>
+                    <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Okt 2025 – Jan 2026</div>
+                </div>
+            </div>
 
-        gsap.to('#hero-name .reveal-char', {
-            opacity: 1, y: 0,
-            duration: 0.5, stagger: 0.04,
-            ease: 'power3.out', delay: 0.15,
-        });
+            <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+                <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2024</div>
+                <div>
+                    <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">Graphic Design &amp; Editor Konten</div>
+                    <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Tim Promosi FTII UHAMKA — Magang</div>
+                    <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Aug 2024 – Aug 2026</div>
+                </div>
+            </div>
 
-        gsap.to(sideNav, { opacity: 1, duration: 0.6, delay: 0.8 });
+            <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+                <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2024</div>
+                <div>
+                    <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">Petugas KPPS</div>
+                    <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Komisi Pemilihan Umum (KPU) — Paruh Waktu</div>
+                    <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Jan – Feb 2024</div>
+                </div>
+            </div>
 
-        setupScrollReveal();
-        setupNavDots();
-        setupContactReveal();
-        setupSmoothScroll();
-    }
+            <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+                <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2022</div>
+                <div>
+                    <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">PKL — Rainbow Foto Studio</div>
+                    <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Praktik Kerja Lapangan</div>
+                    <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Jul – Sep 2022</div>
+                </div>
+            </div>
+        </section>
 
-    // ─── SCROLL REVEAL ───
-    function setupScrollReveal() {
-        document.querySelectorAll('.reveal-text').forEach(el => {
-            gsap.fromTo(el,
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1, y: 0,
-                    duration: 0.8,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: el,
-                        start: 'top 88%',
-                        toggleActions: 'play none none none',
-                    }
-                }
-            );
-        });
-    }
 
-    // ─── NAV DOTS ───
-    function setupNavDots() {
-        const dots = document.querySelectorAll('.nav-dot');
-        const sections = ['hero', 'about', 'education', 'experience', 'projects', 'orgs', 'skills', 'certs', 'contact'];
+        <!-- ══════════════════════════════════════════
+             SECTION 5: PROJECTS
+             NFT-style card grid with video thumbnails
+             ══════════════════════════════════════════ -->
+        <section id="projects" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+            <!-- Header -->
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12 md:mb-16">
+                <div class="reveal-text">
+                    <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-6">04 — Proyek</p>
+                    <h2 class="font-grotesk text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1.1] text-cream">
+                        Collection of<br>
+                        <span class="ml-12 md:ml-24 lg:ml-32"><span class="font-condiment text-neon normal-case">Creative</span> Projects</span>
+                    </h2>
+                </div>
+                <div class="reveal-text">
+                    <div class="flex items-end gap-2 font-grotesk uppercase text-cream cursor-pointer group">
+                        <span class="text-[clamp(2rem,4vw,3.75rem)] leading-none">8</span>
+                        <div class="flex flex-col leading-tight">
+                            <span class="text-[clamp(1rem,2vw,2rem)]">Total</span>
+                            <span class="text-[clamp(1rem,2vw,2rem)]">Projects</span>
+                        </div>
+                    </div>
+                    <div class="h-[6px] md:h-[8px] lg:h-[10px] bg-neon rounded-full w-full mt-2"></div>
+                </div>
+            </div>
 
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const target = document.getElementById(dot.dataset.target);
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
+            <!-- Card Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        sections.forEach((id, idx) => {
-            const section = document.getElementById(id);
-            if (!section) return;
-            ScrollTrigger.create({
-                trigger: section,
-                start: 'top center',
-                end: 'bottom center',
-                onEnter: () => setActiveDot(idx),
-                onEnterBack: () => setActiveDot(idx),
-            });
-        });
+                <!-- Card 1: GDSC UHAMKA Website -->
+                <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                    <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                        <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_053923_22c0a6a5-313c-474c-85ff-3b50d25e944a.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">Official Website GDSC UHAMKA</p>
+                            <p class="text-[11px] text-cream/50 font-mono mt-0.5">UI/UX Design · Mobile-First · Material Design</p>
+                        </div>
+                        <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </div>
+                </div>
 
-        function setActiveDot(idx) {
-            dots.forEach(d => d.classList.remove('active'));
-            if (dots[idx]) dots[idx].classList.add('active');
-        }
-    }
+                <!-- Card 2: Roblox UHAMKA Beta -->
+                <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                    <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                        <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_054411_511c1b7a-fb2f-42ef-bf6c-32c0b1a06e79.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">Roblox UHAMKA Beta</p>
+                            <p class="text-[11px] text-cream/50 font-mono mt-0.5">GUI &amp; Asset Design · Virtual Campus · Metaverse</p>
+                        </div>
+                        <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </div>
+                </div>
 
-    // ─── CONTACT REVEAL ───
-    function setupContactReveal() {
-        const contactWord = document.getElementById('contact-word');
-        const contactLinks = document.getElementById('contact-links');
-        if (!contactWord || !contactLinks) return;
+                <!-- Card 3: OLU UHAMKA Redesign -->
+                <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                    <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                        <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055427_ac7035b5-9f3b-4289-86fc-941b2432317d.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">OLU UHAMKA Redesign</p>
+                            <p class="text-[11px] text-cream/50 font-mono mt-0.5">UX Research · Mobile App · Jurnal Nasional</p>
+                        </div>
+                        <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </div>
+                </div>
 
-        let expanded = false;
+                <!-- Card 4: Hydra -->
+                <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                    <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-900/60 via-bg to-neon/10 flex items-center justify-center">
+                            <span class="font-grotesk text-cream/20 text-4xl uppercase">Hydra</span>
+                        </div>
+                    </div>
+                    <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"Hydra" Water Reminder App</p>
+                            <p class="text-[11px] text-cream/50 font-mono mt-0.5">End-to-end UI/UX · Personalized Onboarding</p>
+                        </div>
+                        <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </div>
+                </div>
 
-        function toggleContact() {
-            expanded = !expanded;
-            if (expanded) {
-                contactWord.classList.add('contact-expanded');
-                gsap.to(contactLinks, { opacity: 1, duration: 0.5, ease: 'power2.out' });
-                contactLinks.style.pointerEvents = 'auto';
-            } else {
-                contactWord.classList.remove('contact-expanded');
-                gsap.to(contactLinks, { opacity: 0, duration: 0.3, ease: 'power2.in' });
-                contactLinks.style.pointerEvents = 'none';
-            }
-        }
+                <!-- Card 5: Ammar Barbershop -->
+                <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                    <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/60 via-bg to-blue-500/10 flex items-center justify-center">
+                            <span class="font-grotesk text-cream/20 text-4xl uppercase">Ammar</span>
+                        </div>
+                    </div>
+                    <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"Ammar Barbershop" Booking</p>
+                            <p class="text-[11px] text-cream/50 font-mono mt-0.5">Web App · Dark Theme · Gold Accents</p>
+                        </div>
+                        <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </div>
+                </div>
 
-        contactWord.addEventListener('click', () => { if (!expanded) toggleContact(); });
-        contactLinks.addEventListener('click', (e) => { if (e.target.tagName !== 'A' && expanded) toggleContact(); });
-    }
+                <!-- Card 6: LexiPlay -->
+                <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                    <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-bg to-neon/10 flex items-center justify-center">
+                            <span class="font-grotesk text-cream/20 text-4xl uppercase">LexiPlay</span>
+                        </div>
+                    </div>
+                    <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"LexiPlay" Inclusive Literacy</p>
+                            <p class="text-[11px] text-cream/50 font-mono mt-0.5">EdTech · Accessibility · Gamification</p>
+                        </div>
+                        <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    // ─── SMOOTH SCROLL NAV ───
-    function setupSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(a.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-        });
-    }
 
-    // ─── INIT ───
-    window.addEventListener('DOMContentLoaded', runLoader);
-</script>
+        <!-- ══════════════════════════════════════════
+             SECTION 6: ORGANIZATIONS & AWARDS
+             Alternating-direction marquee + detail list
+             ══════════════════════════════════════════ -->
+        <section id="orgs" class="bg-bg py-20 md:py-32 overflow-hidden">
+            <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 px-5 md:px-10 reveal-text">05 — Organisasi &amp; Penghargaan</p>
+
+            <!-- Org marquee rows -->
+            <div class="space-y-3 reveal-text mb-16">
+                <div class="overflow-hidden">
+                    <div class="org-row org-row-left">
+                        <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
+                        <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
+                        <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
+                        <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
+                        <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
+                        <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
+                        <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
+                        <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
+                        <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
+                        <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
+                        <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
+                        <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
+                    </div>
+                </div>
+                <div class="overflow-hidden">
+                    <div class="org-row org-row-right">
+                        <span class="org-item">Juara 1 Desain Terbaik GDGOC</span><span class="org-separator">●</span>
+                        <span class="org-item">Juara 2 Sayembara Logo FTII</span><span class="org-separator">●</span>
+                        <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
+                        <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
+                        <span class="org-item">HAKI Video Edukasi</span><span class="org-separator">●</span>
+                        <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span class="org-separator">●</span>
+                        <span class="org-item">Juara 1 Desain Terbaik GDGOC</span><span class="org-separator">●</span>
+                        <span class="org-item">Juara 2 Sayembara Logo FTII</span><span class="org-separator">●</span>
+                        <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
+                        <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
+                        <span class="org-item">HAKI Video Edukasi</span><span class="org-separator">●</span>
+                        <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span class="org-separator">●</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail awards list -->
+            <div class="max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 space-y-1">
+                <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 1 Desain Terbaik — Seminar UI/UX Deep Dive (GDGOC STT NF) — Des 2024</div>
+                <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 2 Sayembara Logo Milad FTII ke-27 — Maret 2024</div>
+                <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 1 Konten TikTok Baitul Arqom UHAMKA — Okt 2023</div>
+                <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">📘 HAKI Buku "Pengantar TI" — ISBN: 978-623-10-3247-8 — Sep 2024</div>
+                <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🎬 HAKI Video Edukasi Peternakan Ikan — Okt 2024</div>
+            </div>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════
+             SECTION 7: SKILLS
+             Multi-speed marquee rows with liquid glass tags
+             ══════════════════════════════════════════ -->
+        <section id="skills" class="bg-bg py-20 md:py-32 overflow-hidden">
+            <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 px-5 md:px-10 reveal-text">06 — Keahlian</p>
+
+            <!-- Hard Skills -->
+            <p class="text-cream/25 font-mono text-[10px] uppercase tracking-widest px-5 md:px-10 mb-5 reveal-text">Hard Skills</p>
+            <div class="space-y-3 mb-14 reveal-text">
+                <div class="overflow-hidden">
+                    <div class="skills-row skills-row-left">
+                        <span class="skill-tag liquid-glass rounded-full">Figma</span>
+                        <span class="skill-tag liquid-glass rounded-full">Adobe Illustrator</span>
+                        <span class="skill-tag liquid-glass rounded-full">Wireframing</span>
+                        <span class="skill-tag liquid-glass rounded-full">Prototyping</span>
+                        <span class="skill-tag liquid-glass rounded-full">Design System</span>
+                        <span class="skill-tag liquid-glass rounded-full">HTML</span>
+                        <span class="skill-tag liquid-glass rounded-full">CSS</span>
+                        <span class="skill-tag liquid-glass rounded-full">JavaScript</span>
+                        <span class="skill-tag liquid-glass rounded-full">Figma</span>
+                        <span class="skill-tag liquid-glass rounded-full">Adobe Illustrator</span>
+                        <span class="skill-tag liquid-glass rounded-full">Wireframing</span>
+                        <span class="skill-tag liquid-glass rounded-full">Prototyping</span>
+                        <span class="skill-tag liquid-glass rounded-full">Design System</span>
+                        <span class="skill-tag liquid-glass rounded-full">HTML</span>
+                        <span class="skill-tag liquid-glass rounded-full">CSS</span>
+                        <span class="skill-tag liquid-glass rounded-full">JavaScript</span>
+                    </div>
+                </div>
+                <div class="overflow-hidden">
+                    <div class="skills-row skills-row-right">
+                        <span class="skill-tag liquid-glass rounded-full">Roblox Studio</span>
+                        <span class="skill-tag liquid-glass rounded-full">CapCut</span>
+                        <span class="skill-tag liquid-glass rounded-full">Microsoft Office</span>
+                        <span class="skill-tag liquid-glass rounded-full">Visual Content Editing</span>
+                        <span class="skill-tag liquid-glass rounded-full">User Research</span>
+                        <span class="skill-tag liquid-glass rounded-full">Design Thinking</span>
+                        <span class="skill-tag liquid-glass rounded-full">Roblox Studio</span>
+                        <span class="skill-tag liquid-glass rounded-full">CapCut</span>
+                        <span class="skill-tag liquid-glass rounded-full">Microsoft Office</span>
+                        <span class="skill-tag liquid-glass rounded-full">Visual Content Editing</span>
+                        <span class="skill-tag liquid-glass rounded-full">User Research</span>
+                        <span class="skill-tag liquid-glass rounded-full">Design Thinking</span>
+                    </div>
+                </div>
+                <div class="overflow-hidden">
+                    <div class="skills-row skills-row-fast">
+                        <span class="skill-tag liquid-glass rounded-full">Mobile-First Design</span>
+                        <span class="skill-tag liquid-glass rounded-full">Material Design</span>
+                        <span class="skill-tag liquid-glass rounded-full">Responsive Web</span>
+                        <span class="skill-tag liquid-glass rounded-full">Accessibility (a11y)</span>
+                        <span class="skill-tag liquid-glass rounded-full">Inclusive Design</span>
+                        <span class="skill-tag liquid-glass rounded-full">Gamification</span>
+                        <span class="skill-tag liquid-glass rounded-full">Mobile-First Design</span>
+                        <span class="skill-tag liquid-glass rounded-full">Material Design</span>
+                        <span class="skill-tag liquid-glass rounded-full">Responsive Web</span>
+                        <span class="skill-tag liquid-glass rounded-full">Accessibility (a11y)</span>
+                        <span class="skill-tag liquid-glass rounded-full">Inclusive Design</span>
+                        <span class="skill-tag liquid-glass rounded-full">Gamification</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <p class="text-cream/25 font-mono text-[10px] uppercase tracking-widest px-5 md:px-10 mb-5 reveal-text">Soft Skills</p>
+            <div class="space-y-3 reveal-text">
+                <div class="overflow-hidden">
+                    <div class="skills-row skills-row-right" style="animation-duration:38s">
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Manajemen Waktu</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Cross-functional Teamwork</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Public Speaking</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Berpikir Kritis</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Komunikasi Efektif</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Problem Solving</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Manajemen Waktu</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Cross-functional Teamwork</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Public Speaking</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Berpikir Kritis</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Komunikasi Efektif</span>
+                        <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════
+             SECTION 8: CERTIFICATIONS
+             Clean list with date + title
+             ══════════════════════════════════════════ -->
+        <section id="certs" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+            <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">07 — Sertifikasi</p>
+            <div class="space-y-1">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                    <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Mar 2025</span>
+                    <span class="text-cream/70 text-base font-inter font-medium">UX Fundamentals — <span class="text-cream/40">IBM SkillsBuild</span></span>
+                </div>
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                    <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Des 2024</span>
+                    <span class="text-cream/70 text-base font-inter font-medium">UI/UX Deep Dive — <span class="text-cream/40">GDGOC STT NF</span></span>
+                </div>
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                    <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Des 2023</span>
+                    <span class="text-cream/70 text-base font-inter font-medium">Design System in UI Design — <span class="text-cream/40">MySkill</span></span>
+                </div>
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                    <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Nov 2023</span>
+                    <span class="text-cream/70 text-base font-inter font-medium">Wireframing in UI/UX Design — <span class="text-cream/40">MySkill</span></span>
+                </div>
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                    <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Sep 2023</span>
+                    <span class="text-cream/70 text-base font-inter font-medium">UX Research — <span class="text-cream/40">MySkill</span></span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ══════════════════════════════════════════
+             SECTION 9: CONTACT (CTA)
+             Video background + click-to-reveal links
+             ══════════════════════════════════════════ -->
+        <section id="contact" class="video-section relative">
+            <video class="w-full h-auto block" autoplay loop muted playsinline>
+                <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055729_72d66327-b59e-4ae9-bb70-de6ccb5ecdb0.mp4" type="video/mp4">
+            </video>
+
+            <!-- CTA Text overlay -->
+            <div class="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[15%] px-5">
+                <div class="relative text-right">
+                    <span class="font-condiment text-neon text-[clamp(1.2rem,4vw,4rem)] absolute -top-8 md:-top-12 left-0 mix-blend-exclusion opacity-90 pointer-events-none">
+                        Get in touch
+                    </span>
+                    <div id="contact-word" class="font-grotesk text-cream text-[clamp(1.5rem,5vw,3.75rem)] uppercase leading-[1.15] cursor-pointer select-none">
+                        <span class="contact-letter block mb-3 md:mb-8">Let's Connect.</span>
+                        <span class="contact-letter block">Reveal What's</span>
+                        <span class="contact-letter block">Hidden.</span>
+                        <span class="contact-letter block">Follow The Signal.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact links (revealed on click) -->
+            <div id="contact-links" class="absolute inset-0 flex flex-col items-center justify-center gap-5 opacity-0 pointer-events-none transition-all duration-500 z-20">
+                <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em]">Mari Terhubung</p>
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">✉ Email</a>
+                    <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" rel="noopener" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">↗ LinkedIn</a>
+                    <a href="tel:+6285716489840" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">☎ +62 857-1648-9840</a>
+                </div>
+                <p class="text-cream/30 font-mono text-xs">firdifirdaus19@gmail.com</p>
+                <p class="text-cream/20 font-mono text-[10px] mt-2 cursor-pointer hover:text-neon transition-colors">Klik di mana saja untuk menutup</p>
+            </div>
+
+            <!-- Social icons (bottom-left, desktop) -->
+            <div class="absolute left-[5%] md:left-[8%] bottom-[8%] md:bottom-[15%] z-10 hidden lg:block">
+                <div class="liquid-glass rounded-[1.25rem] flex flex-col">
+                    <a href="mailto:firdifirdaus19@gmail.com" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors border-b border-white/10">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors border-b border-white/10">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ═══ FOOTER ═══ -->
+        <footer class="bg-bg px-5 md:px-10 lg:px-16 py-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 max-w-[1831px] mx-auto">
+            <span class="font-grotesk text-cream/40 text-xs uppercase">© 2026 Firdaus Firmansyah</span>
+            <span class="font-condiment text-neon/40 text-lg">Liquid Glass Edition</span>
+            <span class="font-mono text-cream/30 text-[10px] uppercase tracking-wider">DKI Jakarta, Indonesia</span>
+        </footer>
+
+    </main>
+
+
+    <!-- ═══ APPLICATION JAVASCRIPT ═══ -->
+    <script src="js/app.js"></script>
 
 </body>
 </html>
