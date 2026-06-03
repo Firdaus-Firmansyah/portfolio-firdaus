@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIRDAUS FIRMANSYAH — Portfolio 2026</title>
     <meta name="description"
-        content="Portfolio interaktif Firdaus Firmansyah — Informatics Engineering Student, UI/UX Design Enthusiast, Junior Front-End Developer. Kinetic Typography Edition.">
+        content="Portfolio interaktif Firdaus Firmansyah — UI/UX Designer, Front-End Developer. Space-themed kinetic typography with liquid glass UI.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Condiment&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -18,1127 +17,956 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { 'inter': ['Inter', 'sans-serif'] },
+                    fontFamily: {
+                        'grotesk': ['Anton', 'sans-serif'],
+                        'condiment': ['Condiment', 'cursive'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
                     colors: {
-                        'lemon': '#E4FF1A',
-                        'electric': '#00D4FF',
-                        'dark': '#0A0A0A',
-                        'darker': '#050505',
+                        'bg': '#010828',
+                        'cream': '#EFF4FF',
+                        'neon': '#6FFF00',
                     }
                 }
             }
         }
     </script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            scrollbar-width: thin;
-            scrollbar-color: #E4FF1A #0A0A0A;
-        }
+        html { scrollbar-width: thin; scrollbar-color: #6FFF00 #010828; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: #050505;
-            color: #ffffff;
+            background: #010828;
+            color: #EFF4FF;
             overflow-x: hidden;
-            cursor: default;
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #010828; }
+        ::-webkit-scrollbar-thumb { background: #6FFF00; border-radius: 3px; }
+
+        /* ─── LIQUID GLASS ─── */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.01);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: none;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.4px;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%,
+                rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%,
+                rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #0A0A0A;
+        /* ─── TEXTURE OVERLAY ─── */
+        .texture-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0.08;
+            mix-blend-mode: lighten;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            background-size: cover;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #E4FF1A;
-            border-radius: 3px;
+        /* ─── VIDEO SECTION ─── */
+        .video-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .video-section {
+            position: relative;
+            overflow: hidden;
         }
 
         /* ─── MARQUEE ─── */
         .marquee-track {
             display: flex;
             width: max-content;
-            animation: marqueeLeft 22s linear infinite;
+            animation: marqueeLeft 25s linear infinite;
         }
-
         .marquee-track-reverse {
             display: flex;
             width: max-content;
-            animation: marqueeRight 28s linear infinite;
+            animation: marqueeRight 30s linear infinite;
         }
-
         @keyframes marqueeLeft {
-            0% {
-                transform: translateX(0);
-            }
-
-            100% {
-                transform: translateX(-50%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
-
         @keyframes marqueeRight {
-            0% {
-                transform: translateX(-50%);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
-
         .marquee-track:hover,
-        .marquee-track-reverse:hover {
-            animation-play-state: paused;
-        }
+        .marquee-track-reverse:hover { animation-play-state: paused; }
 
-        /* ─── TEXT STROKE ─── */
-        .stroke-text {
-            -webkit-text-stroke: 2px #ffffff;
-            color: transparent;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .stroke-text:hover,
-        .stroke-text.active {
-            -webkit-text-stroke: 0px transparent;
-            color: #E4FF1A;
-        }
-
-        /* ─── REVEAL ANIMATIONS ─── */
-        .reveal-text {
-            opacity: 0;
-            transform: translateY(60px);
-        }
-
-        .reveal-char {
-            display: inline-block;
-            opacity: 0;
-            transform: translateY(100%);
-        }
-
-        .reveal-line {
-            opacity: 0;
-            transform: translateX(-40px);
-        }
-
-        /* ─── KEYWORD HIGHLIGHT ─── */
-        .keyword {
-            color: #E4FF1A;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            cursor: default;
-        }
-
-        .keyword:hover {
-            color: #00D4FF;
-            font-weight: 900;
-            letter-spacing: 0.02em;
-        }
+        /* ─── SKILLS MARQUEE ─── */
+        .skills-row { display: flex; width: max-content; gap: 1rem; }
+        .skills-row-left { animation: marqueeLeft 30s linear infinite; }
+        .skills-row-right { animation: marqueeRight 35s linear infinite; }
+        .skills-row-fast { animation: marqueeLeft 22s linear infinite; }
 
         /* ─── TIMELINE ─── */
         .timeline-year {
-            font-size: clamp(2.5rem, 7vw, 6rem);
-            font-weight: 900;
-            -webkit-text-stroke: 1.5px #555;
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.5rem, 7vw, 5rem);
+            -webkit-text-stroke: 1.5px rgba(239, 244, 255, 0.2);
             color: transparent;
             line-height: 1;
             transition: all 0.4s;
         }
-
         .timeline-row:hover .timeline-year {
             -webkit-text-stroke: 0px;
-            color: #E4FF1A;
+            color: #6FFF00;
+        }
+        .timeline-row:hover .timeline-detail { color: #EFF4FF; }
+
+        /* ─── PROJECT CARD ─── */
+        .project-card {
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+        .project-card:hover .project-title { color: #6FFF00; }
+        .project-card:hover .project-arrow {
+            transform: scale(1.1);
         }
 
-        .timeline-row:hover .timeline-detail {
-            color: #fff;
-        }
-
-        /* ─── SKILLS MARQUEE ─── */
-        .skills-row {
-            display: flex;
-            width: max-content;
-            gap: 1.2rem;
-        }
-
-        .skills-row-left {
-            animation: marqueeLeft 28s linear infinite;
-        }
-
-        .skills-row-right {
-            animation: marqueeRight 32s linear infinite;
-        }
-
-        .skills-row-left-fast {
-            animation: marqueeLeft 20s linear infinite;
-        }
-
+        /* ─── SKILL TAG ─── */
         .skill-tag {
-            padding: 0.6rem 1.6rem;
-            border: 1.5px solid #666;
+            padding: 0.5rem 1.4rem;
             border-radius: 100px;
-            font-size: clamp(0.85rem, 1.8vw, 1.2rem);
+            font-size: clamp(0.8rem, 1.6vw, 1.1rem);
             font-weight: 500;
             white-space: nowrap;
             transition: all 0.3s;
-            color: #bbb;
+            color: rgba(239, 244, 255, 0.6);
+            font-family: 'Inter', sans-serif;
         }
-
         .skill-tag:hover {
-            border-color: #E4FF1A;
-            color: #E4FF1A;
-            background: rgba(228, 255, 26, 0.08);
+            color: #6FFF00;
+            background: rgba(111, 255, 0, 0.08);
         }
 
-        /* ─── ORG / AWARDS MARQUEE ─── */
-        .org-row {
-            display: flex;
-            width: max-content;
-            gap: 2.5rem;
-            align-items: center;
-        }
-
-        .org-row-left {
-            animation: marqueeLeft 24s linear infinite;
-        }
-
-        .org-row-right {
-            animation: marqueeRight 28s linear infinite;
-        }
-
+        /* ─── ORG MARQUEE ─── */
+        .org-row { display: flex; width: max-content; gap: 2.5rem; align-items: center; }
+        .org-row-left { animation: marqueeLeft 26s linear infinite; }
+        .org-row-right { animation: marqueeRight 30s linear infinite; }
         .org-item {
-            font-size: clamp(1rem, 2.5vw, 1.8rem);
-            font-weight: 600;
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(1rem, 2.5vw, 1.6rem);
             white-space: nowrap;
-            color: #777;
+            color: rgba(239, 244, 255, 0.25);
             transition: color 0.3s;
+            text-transform: uppercase;
         }
+        .org-item:hover { color: #6FFF00; }
+        .org-separator { color: rgba(111, 255, 0, 0.3); font-size: 0.8rem; }
 
-        .org-item:hover {
-            color: #00D4FF;
-        }
-
-        .org-separator {
-            color: #222;
-            font-size: 1.2rem;
-        }
-
-        /* ─── CONTACT REVEAL ─── */
+        /* ─── CONTACT ─── */
         .contact-letter {
             display: inline-block;
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
         }
-
         .contact-expanded .contact-letter {
-            opacity: 0.12;
-            filter: blur(6px);
+            opacity: 0.08;
+            filter: blur(8px);
             transform: scale(0.85) translateY(-30px);
-        }
-
-        /* ─── PROJECT CARD ─── */
-        .project-card {
-            border-bottom: 1px solid #1a1a1a;
-            padding: 2rem 0;
-            transition: all 0.3s;
-            cursor: default;
-        }
-
-        .project-card:hover {
-            border-bottom-color: #E4FF1A;
-            padding-left: 1rem;
-        }
-
-        .project-card:hover .project-title {
-            color: #E4FF1A;
-        }
-
-        .project-card:hover .project-year {
-            color: #E4FF1A;
-            -webkit-text-stroke: 0px;
-        }
-
-        .project-year {
-            font-size: clamp(1.5rem, 4vw, 3rem);
-            font-weight: 900;
-            -webkit-text-stroke: 1px #555;
-            color: transparent;
-            transition: all 0.4s;
-        }
-
-        .project-title {
-            color: #ccc;
-            transition: color 0.3s;
-        }
-
-        /* ─── CERT ITEM ─── */
-        .cert-item {
-            transition: all 0.3s;
-            cursor: default;
-        }
-
-        .cert-item:hover {
-            color: #E4FF1A;
-            padding-left: 0.5rem;
         }
 
         /* ─── NAV DOT ─── */
         .nav-dot {
-            width: 10px;
-            height: 10px;
+            width: 8px; height: 8px;
             border-radius: 50%;
-            border: 1.5px solid #666;
+            border: 1.5px solid rgba(239, 244, 255, 0.3);
             background: transparent;
             transition: all 0.3s;
             cursor: pointer;
         }
-
-        .nav-dot.active,
-        .nav-dot:hover {
-            background: #E4FF1A;
-            border-color: #E4FF1A;
-            box-shadow: 0 0 12px rgba(228, 255, 26, 0.4);
+        .nav-dot.active, .nav-dot:hover {
+            background: #6FFF00;
+            border-color: #6FFF00;
+            box-shadow: 0 0 10px rgba(111, 255, 0, 0.5);
         }
 
         /* ─── LOADER ─── */
         #loader {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: #050505;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            gap: 1rem;
+            position: fixed; inset: 0; z-index: 9999;
+            background: #010828;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; gap: 0.8rem;
         }
 
-        .loader-text {
-            font-size: clamp(2rem, 7vw, 6rem);
-            font-weight: 900;
-            letter-spacing: -0.04em;
+        /* ─── KEYWORD ─── */
+        .keyword {
+            color: #6FFF00;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .keyword:hover {
+            text-shadow: 0 0 20px rgba(111, 255, 0, 0.4);
+            letter-spacing: 0.02em;
         }
 
-        /* ─── NOISE ─── */
-        .noise-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9998;
-            pointer-events: none;
-            opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
+        /* ─── CERT ITEM ─── */
+        .cert-item { transition: all 0.3s; }
+        .cert-item:hover { color: #6FFF00; padding-left: 0.5rem; }
 
-        /* ─── SECTION LABEL ─── */
-        .section-label {
-            font-size: 0.7rem;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            color: #bbb;
-            font-weight: 500;
-        }
-
-        /* ─── ROLE MARQUEE ─── */
-        .role-marquee {
-            display: flex;
-            width: max-content;
-            animation: marqueeLeft 35s linear infinite;
-        }
+        /* ─── REVEAL ─── */
+        .reveal-text { opacity: 0; transform: translateY(50px); }
+        .reveal-char { display: inline-block; opacity: 0; transform: translateY(100%); }
 
         @media (max-width: 768px) {
-            .stroke-text {
-                -webkit-text-stroke: 1px #ffffff;
-            }
-
-            .timeline-year {
-                -webkit-text-stroke: 1px #555;
-            }
+            .timeline-year { -webkit-text-stroke: 1px rgba(239, 244, 255, 0.2); }
         }
     </style>
 </head>
 
-<body class="font-inter">
+<body>
 
-    <!-- NOISE -->
-    <div class="noise-overlay"></div>
+<!-- TEXTURE OVERLAY -->
+<div class="texture-overlay"></div>
 
-    <!-- ═══ LOADER ═══ -->
-    <div id="loader">
-        <div class="loader-text" id="loader-text"></div>
-        <div class="text-xs tracking-[0.5em] text-neutral-200 uppercase" id="loader-sub"></div>
-    </div>
+<!-- LOADER -->
+<div id="loader">
+    <div class="font-grotesk text-[clamp(2rem,7vw,5rem)] uppercase tracking-wider" id="loader-text"></div>
+    <div class="font-condiment text-neon text-xl opacity-80" id="loader-sub"></div>
+</div>
 
-    <!-- ═══ SIDE NAV DOTS ═══ -->
-    <nav id="side-nav" class="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3 opacity-0"
-        aria-label="Section navigation">
-        <div class="nav-dot active" data-target="hero" title="Hero"></div>
-        <div class="nav-dot" data-target="about" title="About"></div>
-        <div class="nav-dot" data-target="education" title="Education"></div>
-        <div class="nav-dot" data-target="experience" title="Experience"></div>
-        <div class="nav-dot" data-target="projects" title="Projects"></div>
-        <div class="nav-dot" data-target="orgs" title="Organizations"></div>
-        <div class="nav-dot" data-target="skills" title="Skills"></div>
-        <div class="nav-dot" data-target="certs" title="Certifications"></div>
-        <div class="nav-dot" data-target="contact" title="Contact"></div>
-    </nav>
+<!-- SIDE NAV -->
+<nav id="side-nav" class="fixed right-5 top-1/2 -translate-y-1/2 z-40 flex flex-col gap-3 opacity-0">
+    <div class="nav-dot active" data-target="hero" title="Home"></div>
+    <div class="nav-dot" data-target="about" title="About"></div>
+    <div class="nav-dot" data-target="education" title="Education"></div>
+    <div class="nav-dot" data-target="experience" title="Experience"></div>
+    <div class="nav-dot" data-target="projects" title="Projects"></div>
+    <div class="nav-dot" data-target="orgs" title="Organizations"></div>
+    <div class="nav-dot" data-target="skills" title="Skills"></div>
+    <div class="nav-dot" data-target="certs" title="Certifications"></div>
+    <div class="nav-dot" data-target="contact" title="Contact"></div>
+</nav>
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- ═══════════ MAIN CONTENT ═══════════════════════ -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <main id="main-content" style="display:none;">
+<!-- ═══════════ MAIN ═══════════ -->
+<main id="main-content" style="display:none;">
 
-        <!-- ══════════ 1. HERO ══════════ -->
-        <section id="hero" class="min-h-screen flex flex-col justify-center relative overflow-hidden">
-            <!-- Top marquee -->
-            <div class="overflow-hidden py-5 border-b border-neutral-800 select-none">
-                <div class="marquee-track">
-                    <span
-                        class="text-[clamp(2.5rem,8vw,8rem)] font-black tracking-tighter text-neutral-800 whitespace-nowrap px-4">
-                        FIRDAUS FIRMANSYAH — PORTFOLIO — 2026 — UI/UX DESIGNER — FRONT-END DEV — FIRDAUS FIRMANSYAH —
-                        PORTFOLIO — 2026 — UI/UX DESIGNER — FRONT-END DEV —&nbsp;
-                    </span>
-                    <span
-                        class="text-[clamp(2.5rem,8vw,8rem)] font-black tracking-tighter text-neutral-800 whitespace-nowrap px-4">
-                        FIRDAUS FIRMANSYAH — PORTFOLIO — 2026 — UI/UX DESIGNER — FRONT-END DEV — FIRDAUS FIRMANSYAH —
-                        PORTFOLIO — 2026 — UI/UX DESIGNER — FRONT-END DEV —&nbsp;
-                    </span>
-                </div>
-            </div>
+    <!-- ══════ 1. HERO ══════ -->
+    <section id="hero" class="video-section min-h-screen flex flex-col rounded-b-[32px]">
+        <video class="video-bg" autoplay loop muted playsinline>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4" type="video/mp4">
+        </video>
 
-            <!-- Giant name -->
-            <div class="px-6 md:px-12 lg:px-24 py-12 md:py-20 flex-1 flex flex-col justify-center">
-                <h1 id="hero-name"
-                    class="text-[clamp(3.5rem,13vw,15rem)] font-black leading-[0.88] tracking-tighter uppercase">
-                    <span class="block overflow-hidden"><span class="reveal-char inline-block">F</span><span
-                            class="reveal-char inline-block">I</span><span
-                            class="reveal-char inline-block">R</span><span
-                            class="reveal-char inline-block">D</span><span
-                            class="reveal-char inline-block">A</span><span
-                            class="reveal-char inline-block">U</span><span
-                            class="reveal-char inline-block">S</span></span>
-                    <span class="block overflow-hidden stroke-text"><span class="reveal-char inline-block">F</span><span
-                            class="reveal-char inline-block">I</span><span
-                            class="reveal-char inline-block">R</span><span
-                            class="reveal-char inline-block">M</span><span
-                            class="reveal-char inline-block">A</span><span
-                            class="reveal-char inline-block">N</span><span
-                            class="reveal-char inline-block">S</span><span
-                            class="reveal-char inline-block">Y</span><span
-                            class="reveal-char inline-block">A</span><span
-                            class="reveal-char inline-block">H</span></span>
+        <!-- NAVBAR -->
+        <header class="relative z-10 w-full max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 pt-6 flex items-center justify-between">
+            <span class="font-grotesk text-cream text-base uppercase tracking-wide">Firdaus.Dev</span>
+            <nav class="liquid-glass rounded-[28px] px-8 lg:px-[52px] py-4 lg:py-[24px] hidden lg:block">
+                <ul class="flex gap-8">
+                    <li><a href="#hero" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Home</a></li>
+                    <li><a href="#about" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">About</a></li>
+                    <li><a href="#projects" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Projects</a></li>
+                    <li><a href="#skills" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Skills</a></li>
+                    <li><a href="#contact" class="font-grotesk text-cream text-[13px] uppercase hover:text-neon transition-colors duration-300">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="lg:hidden liquid-glass rounded-xl p-3 hover:bg-white/10 transition-colors">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+        </header>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 flex-1 flex flex-col justify-end max-w-[1831px] mx-auto w-full px-5 md:px-10 lg:px-16 pb-16 md:pb-24">
+            <div class="relative lg:ml-16 max-w-[850px]">
+                <h1 id="hero-name" class="font-grotesk text-[clamp(2.8rem,10vw,6rem)] uppercase leading-[1.05] md:leading-[1] text-cream">
+                    <span class="block overflow-hidden"><span class="reveal-char">F</span><span class="reveal-char">I</span><span class="reveal-char">R</span><span class="reveal-char">D</span><span class="reveal-char">A</span><span class="reveal-char">U</span><span class="reveal-char">S</span></span>
+                    <span class="block overflow-hidden"><span class="reveal-char">F</span><span class="reveal-char">I</span><span class="reveal-char">R</span><span class="reveal-char">M</span><span class="reveal-char">A</span><span class="reveal-char">N</span><span class="reveal-char">S</span><span class="reveal-char">Y</span><span class="reveal-char">A</span><span class="reveal-char">H</span></span>
                 </h1>
-
-                <!-- Role marquee -->
-                <div class="overflow-hidden mt-8 border-t border-neutral-800 pt-4">
-                    <div class="role-marquee">
-                        <span
-                            class="text-base md:text-xl font-light tracking-[0.35em] text-neutral-200 whitespace-nowrap pr-16 uppercase">
-                            Informatics Engineering Student — UI/UX Design Enthusiast — Junior Front-End Developer —
-                            Informatics Engineering Student — UI/UX Design Enthusiast — Junior Front-End Developer —
-                            Informatics Engineering Student — UI/UX Design Enthusiast — Junior Front-End Developer
-                            —&nbsp;
-                        </span>
-                        <span
-                            class="text-base md:text-xl font-light tracking-[0.35em] text-neutral-200 whitespace-nowrap pr-16 uppercase">
-                            Informatics Engineering Student — UI/UX Design Enthusiast — Junior Front-End Developer —
-                            Informatics Engineering Student — UI/UX Design Enthusiast — Junior Front-End Developer —
-                            Informatics Engineering Student — UI/UX Design Enthusiast — Junior Front-End Developer
-                            —&nbsp;
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Meta line -->
-                <div
-                    class="flex flex-wrap gap-6 md:gap-12 mt-8 text-xs text-neutral-200 tracking-widest uppercase reveal-text">
-                    <span>DKI Jakarta</span>
-                    <span>UHAMKA</span>
-                    <span>21 Tahun</span>
-                </div>
-            </div>
-
-            <!-- Scroll hint -->
-            <div
-                class="absolute bottom-8 left-6 md:left-12 text-xs text-neutral-200 tracking-[0.3em] uppercase reveal-text">
-                Scroll to explore ↓
-            </div>
-        </section>
-
-
-        <!-- ══════════ 2. ABOUT ══════════ -->
-        <section id="about" class="min-h-screen flex items-center px-6 md:px-12 lg:px-24 py-24 md:py-32">
-            <div class="max-w-5xl">
-                <p class="section-label mb-10 reveal-text">01 — Tentang Saya</p>
-                <p class="text-xl md:text-3xl lg:text-[2.6rem] font-light leading-[1.5] text-neutral-200 reveal-text">
-                    Mahasiswa <span class="keyword">Teknik Informatika</span> semester 6 di UHAMKA dengan ketertarikan
-                    kuat dalam
-                    <span class="keyword">UI/UX Design</span>, <span class="keyword">Front-End Development</span>, dan
-                    konten kreatif digital.
-                    Dipercaya oleh universitas sebagai bagian dari Tim Project resmi untuk mengembangkan
-                    <span class="keyword">virtual environment (Metaverse)</span> kampus di platform Roblox.
-                </p>
-                <p
-                    class="text-xl md:text-3xl lg:text-[2.6rem] font-light leading-[1.5] text-neutral-200 mt-8 reveal-text">
-                    Aktif dalam <span class="keyword">Core Team DSC UHAMKA</span> sebagai UI/UX Designer untuk merancang
-                    website resmi dan
-                    identitas visual komunitas. Berpengalaman sebagai <span class="keyword">pembicara workshop</span>,
-                    <span class="keyword">content editor</span>, dan <span class="keyword">penulis jurnal
-                        nasional</span>.
-                    Terbiasa bekerja kolaboratif dalam tim agile dan memiliki semangat belajar tinggi.
-                </p>
-            </div>
-        </section>
-
-
-        <!-- ══════════ 3. EDUCATION ══════════ -->
-        <section id="education" class="px-6 md:px-12 lg:px-24 py-24 md:py-32">
-            <p class="section-label mb-16 reveal-text">02 — Pendidikan</p>
-
-            <div
-                class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-neutral-800 reveal-text cursor-default">
-                <div class="timeline-year shrink-0 w-auto md:w-72 md:text-right">2023</div>
-                <div>
-                    <div
-                        class="text-xl md:text-2xl font-bold text-neutral-200 timeline-detail transition-colors duration-300">
-                        S1 Teknik Informatika</div>
-                    <div
-                        class="text-sm md:text-base text-neutral-200 mt-1 timeline-detail transition-colors duration-300">
-                        Universitas Muhammadiyah Prof. Dr. Hamka (UHAMKA)</div>
-                    <div class="text-xs text-neutral-200 mt-2 timeline-detail transition-colors duration-300">2023 –
-                        Sekarang</div>
-                </div>
-            </div>
-
-            <div
-                class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-neutral-800 reveal-text cursor-default">
-                <div class="timeline-year shrink-0 w-auto md:w-72 md:text-right">2020</div>
-                <div>
-                    <div
-                        class="text-xl md:text-2xl font-bold text-neutral-200 timeline-detail transition-colors duration-300">
-                        SMK 3 Perguruan Cikini, Multimedia</div>
-                    <div
-                        class="text-sm md:text-base text-neutral-200 mt-1 timeline-detail transition-colors duration-300">
-                        Jurusan Multimedia</div>
-                    <div class="text-xs text-neutral-200 mt-2 timeline-detail transition-colors duration-300">2020 –
-                        2023</div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ══════════ 4. EXPERIENCE ══════════ -->
-        <section id="experience" class="px-6 md:px-12 lg:px-24 py-24 md:py-32">
-            <p class="section-label mb-16 reveal-text">03 — Pengalaman Profesional</p>
-
-            <div
-                class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-neutral-800 reveal-text cursor-default">
-                <div class="timeline-year shrink-0 w-auto md:w-72 md:text-right">2025</div>
-                <div>
-                    <div
-                        class="text-xl md:text-2xl font-bold text-neutral-200 timeline-detail transition-colors duration-300">
-                        UI/UX & Asset Designer</div>
-                    <div
-                        class="text-sm md:text-base text-neutral-200 mt-1 timeline-detail transition-colors duration-300">
-                        Tim Project Program Roblox UHAMKA — Penugasan Resmi Wakil Rektor IV</div>
-                    <div class="text-xs text-neutral-200 mt-2 timeline-detail transition-colors duration-300">Okt 2025 –
-                        Jan 2026 · Merancang GUI interaktif, clothing assets 2D/3D, dan Metaverse kampus virtual</div>
-                </div>
-            </div>
-
-            <div
-                class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-neutral-800 reveal-text cursor-default">
-                <div class="timeline-year shrink-0 w-auto md:w-72 md:text-right">2024</div>
-                <div>
-                    <div
-                        class="text-xl md:text-2xl font-bold text-neutral-200 timeline-detail transition-colors duration-300">
-                        Graphic Design & Editor Konten</div>
-                    <div
-                        class="text-sm md:text-base text-neutral-200 mt-1 timeline-detail transition-colors duration-300">
-                        Tim Promosi FTII UHAMKA — Magang</div>
-                    <div class="text-xs text-neutral-200 mt-2 timeline-detail transition-colors duration-300">Aug 2024 –
-                        Aug 2026 · Mendesain 50+ video promosi, poster, infografis, dan konten interaktif</div>
-                </div>
-            </div>
-
-            <div
-                class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-neutral-800 reveal-text cursor-default">
-                <div class="timeline-year shrink-0 w-auto md:w-72 md:text-right">2024</div>
-                <div>
-                    <div
-                        class="text-xl md:text-2xl font-bold text-neutral-200 timeline-detail transition-colors duration-300">
-                        Petugas KPPS</div>
-                    <div
-                        class="text-sm md:text-base text-neutral-200 mt-1 timeline-detail transition-colors duration-300">
-                        Komisi Pemilihan Umum (KPU) — Paruh Waktu</div>
-                    <div class="text-xs text-neutral-200 mt-2 timeline-detail transition-colors duration-300">Jan – Feb
-                        2024 · Mengelola pemungutan suara & verifikasi data hasil suara via siRekap</div>
-                </div>
-            </div>
-
-            <div
-                class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-neutral-800 reveal-text cursor-default">
-                <div class="timeline-year shrink-0 w-auto md:w-72 md:text-right">2022</div>
-                <div>
-                    <div
-                        class="text-xl md:text-2xl font-bold text-neutral-200 timeline-detail transition-colors duration-300">
-                        PKL — Rainbow Foto Studio</div>
-                    <div
-                        class="text-sm md:text-base text-neutral-200 mt-1 timeline-detail transition-colors duration-300">
-                        Praktik Kerja Lapangan</div>
-                    <div class="text-xs text-neutral-200 mt-2 timeline-detail transition-colors duration-300">Jul – Sep
-                        2022 · Pencetakan, pengemasan produk foto, dan produksi album kolase</div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ══════════ 5. PROJECTS ══════════ -->
-        <section id="projects" class="px-6 md:px-12 lg:px-24 py-24 md:py-32">
-            <p class="section-label mb-16 reveal-text">04 — Proyek & Kegiatan</p>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2024</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">Official Website GDSC UHAMKA</div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">UI/UX Design & Visual Identity —
-                            Pendekatan Mobile-First, Design System berbasis Material Design Google, design handoff ke
-                            tim Front-End Developer</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2025</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">Roblox UHAMKA Beta — Virtual Campus
-                        </div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">GUI & Asset Design — Merancang GUI
-                            intuitif dan aset visual 2D/3D clothing untuk avatar karakter dalam game</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2024</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">OLU UHAMKA — Mobile App Redesign
-                        </div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">UX Research — Transformasi e-learning
-                            kampus ke prototipe mobile app. Diterbitkan di Jurnal Teknoka 9 Nasional</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2025</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">Company Profile "Ben Dadi Apik"
-                        </div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">UI/UX Web Design untuk kebutuhan
-                            komersial/bisnis. Diterbitkan di Jurnal RJTI</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2024</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">"Hydra" — Water Reminder Mobile App
-                        </div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">End-to-end UI/UX untuk pelacak
-                            hidrasi tubuh — onboarding personalisasi, custom intervals reminder, dan dashboard
-                            interaktif</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2024</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">"Ammar Barbershop" — Booking Web App
-                        </div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">Aplikasi web responsif untuk online
-                            booking & katalog layanan — dark theme, gold accents, staff profiles & reviews</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2025</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">"LexiPlay" — Inclusive Literacy App
-                        </div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">Kompetisi Recursion 2025 — EdTech
-                            untuk anak berkebutuhan khusus, prinsip Inclusive Design & Accessibility (a11y),
-                            gamification modules</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card reveal-text">
-                <div class="flex flex-col md:flex-row items-start gap-3 md:gap-8">
-                    <div class="project-year shrink-0 w-auto md:w-48 md:text-right">2024</div>
-                    <div>
-                        <div class="project-title text-lg md:text-xl font-semibold">Sensor Colorimetrik Berbasis IoT
-                            (PKM-GFT)</div>
-                        <div class="text-sm text-neutral-200 mt-2 leading-relaxed">Sistem monitoring kualitas air secara
-                            real-time terintegrasi pada tingkat universitas</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ══════════ 6. ORGS & AWARDS ══════════ -->
-        <section id="orgs" class="py-24 md:py-32 overflow-hidden">
-            <p class="section-label mb-16 px-6 md:px-12 reveal-text">05 — Organisasi & Penghargaan</p>
-
-            <!-- Orgs marquee -->
-            <div class="space-y-3 reveal-text mb-16">
-                <div class="overflow-hidden">
-                    <div class="org-row org-row-left">
-                        <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
-                        <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
-                        <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
-                        <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
-                        <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
-                        <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
-                        <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
-                        <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
-                        <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
-                        <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
-                        <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
-                        <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
-                    </div>
-                </div>
-                <div class="overflow-hidden">
-                    <div class="org-row org-row-right">
-                        <span class="org-item">Juara 1 Desain Terbaik GDGOC STT NF</span><span
-                            class="org-separator">●</span>
-                        <span class="org-item">Juara 2 Sayembara Logo Milad FTII</span><span
-                            class="org-separator">●</span>
-                        <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
-                        <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span
-                            class="org-separator">●</span>
-                        <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
-                        <span class="org-item">HAKI Video Edukasi Peternakan Ikan</span><span
-                            class="org-separator">●</span>
-                        <span class="org-item">Juara 1 Desain Terbaik GDGOC STT NF</span><span
-                            class="org-separator">●</span>
-                        <span class="org-item">Juara 2 Sayembara Logo Milad FTII</span><span
-                            class="org-separator">●</span>
-                        <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
-                        <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span
-                            class="org-separator">●</span>
-                        <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
-                        <span class="org-item">HAKI Video Edukasi Peternakan Ikan</span><span
-                            class="org-separator">●</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Detailed awards -->
-            <div class="px-6 md:px-12 lg:px-24 space-y-1">
-                <p class="section-label mb-8 reveal-text">Penghargaan & HAKI</p>
-                <div
-                    class="text-neutral-200 text-sm md:text-base py-3 border-b border-neutral-900 cert-item reveal-text">
-                    🏆 Juara 1 Desain Terbaik — Seminar UI/UX Deep Dive (GDGOC STT NF) — Des 2024</div>
-                <div
-                    class="text-neutral-200 text-sm md:text-base py-3 border-b border-neutral-900 cert-item reveal-text">
-                    🏆 Juara 2 Sayembara Logo Milad FTII ke-27 — Maret 2024</div>
-                <div
-                    class="text-neutral-200 text-sm md:text-base py-3 border-b border-neutral-900 cert-item reveal-text">
-                    🏆 Juara 1 Konten TikTok Baitul Arqom UHAMKA — Okt 2023</div>
-                <div
-                    class="text-neutral-200 text-sm md:text-base py-3 border-b border-neutral-900 cert-item reveal-text">
-                    🏆 Kelompok Terbaik Workshop UI/UX HIMA TI — Mei 2024</div>
-                <div
-                    class="text-neutral-200 text-sm md:text-base py-3 border-b border-neutral-900 cert-item reveal-text">
-                    📘 HAKI Buku "Pengantar TI" — ISBN: 978-623-10-3247-8 — Sep 2024</div>
-                <div
-                    class="text-neutral-200 text-sm md:text-base py-3 border-b border-neutral-900 cert-item reveal-text">
-                    🎬 HAKI Video Edukasi Peternakan Ikan — Okt 2024</div>
-            </div>
-        </section>
-
-
-        <!-- ══════════ 7. SKILLS ══════════ -->
-        <section id="skills" class="py-24 md:py-32 overflow-hidden">
-            <p class="section-label mb-16 px-6 md:px-12 reveal-text">06 — Keahlian</p>
-
-            <!-- Hard Skills marquee -->
-            <p class="text-xs text-neutral-200 tracking-widest uppercase px-6 md:px-12 mb-6 reveal-text">Hard Skills</p>
-            <div class="space-y-3 mb-16 reveal-text">
-                <div class="overflow-hidden">
-                    <div class="skills-row skills-row-left">
-                        <span class="skill-tag">Figma</span>
-                        <span class="skill-tag">Adobe Illustrator</span>
-                        <span class="skill-tag">Wireframing</span>
-                        <span class="skill-tag">Prototyping</span>
-                        <span class="skill-tag">Design System</span>
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">Figma</span>
-                        <span class="skill-tag">Adobe Illustrator</span>
-                        <span class="skill-tag">Wireframing</span>
-                        <span class="skill-tag">Prototyping</span>
-                        <span class="skill-tag">Design System</span>
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                    </div>
-                </div>
-                <div class="overflow-hidden">
-                    <div class="skills-row skills-row-right">
-                        <span class="skill-tag">Roblox Studio</span>
-                        <span class="skill-tag">CapCut</span>
-                        <span class="skill-tag">Microsoft Office</span>
-                        <span class="skill-tag">Visual Content Editing</span>
-                        <span class="skill-tag">User Research</span>
-                        <span class="skill-tag">Design Thinking</span>
-                        <span class="skill-tag">Roblox Studio</span>
-                        <span class="skill-tag">CapCut</span>
-                        <span class="skill-tag">Microsoft Office</span>
-                        <span class="skill-tag">Visual Content Editing</span>
-                        <span class="skill-tag">User Research</span>
-                        <span class="skill-tag">Design Thinking</span>
-                    </div>
-                </div>
-                <div class="overflow-hidden">
-                    <div class="skills-row skills-row-left-fast">
-                        <span class="skill-tag">Mobile-First Design</span>
-                        <span class="skill-tag">Material Design</span>
-                        <span class="skill-tag">Responsive Web</span>
-                        <span class="skill-tag">Accessibility (a11y)</span>
-                        <span class="skill-tag">Inclusive Design</span>
-                        <span class="skill-tag">Gamification</span>
-                        <span class="skill-tag">Mobile-First Design</span>
-                        <span class="skill-tag">Material Design</span>
-                        <span class="skill-tag">Responsive Web</span>
-                        <span class="skill-tag">Accessibility (a11y)</span>
-                        <span class="skill-tag">Inclusive Design</span>
-                        <span class="skill-tag">Gamification</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Soft Skills marquee -->
-            <p class="text-xs text-neutral-200 tracking-widest uppercase px-6 md:px-12 mb-6 reveal-text">Soft Skills</p>
-            <div class="space-y-3 reveal-text">
-                <div class="overflow-hidden">
-                    <div class="skills-row skills-row-right" style="animation-duration:35s">
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Manajemen Waktu</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Cross-functional
-                            Teamwork</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Public Speaking</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Berpikir Kritis</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Komunikasi Efektif</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Problem Solving</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Manajemen Waktu</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Cross-functional
-                            Teamwork</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Public Speaking</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Berpikir Kritis</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Komunikasi Efektif</span>
-                        <span class="skill-tag" style="border-color:#1a3a3a;color:#00D4FF55;">Problem Solving</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ══════════ 8. CERTIFICATIONS ══════════ -->
-        <section id="certs" class="px-6 md:px-12 lg:px-24 py-24 md:py-32">
-            <p class="section-label mb-16 reveal-text">07 — Sertifikasi</p>
-
-            <div class="space-y-1">
-                <div
-                    class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-4 border-b border-neutral-900 cert-item reveal-text">
-                    <span class="text-xs text-neutral-200 font-medium tracking-wider shrink-0 w-auto md:w-32">Mar
-                        2025</span>
-                    <span class="text-neutral-200 text-base md:text-lg font-medium">UX Fundamentals — <span
-                            class="text-neutral-200">IBM SkillsBuild</span></span>
-                </div>
-                <div
-                    class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-4 border-b border-neutral-900 cert-item reveal-text">
-                    <span class="text-xs text-neutral-200 font-medium tracking-wider shrink-0 w-auto md:w-32">Des
-                        2024</span>
-                    <span class="text-neutral-200 text-base md:text-lg font-medium">UI/UX Deep Dive — <span
-                            class="text-neutral-200">GDGOC STT NF</span></span>
-                </div>
-                <div
-                    class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-4 border-b border-neutral-900 cert-item reveal-text">
-                    <span class="text-xs text-neutral-200 font-medium tracking-wider shrink-0 w-auto md:w-32">Des
-                        2023</span>
-                    <span class="text-neutral-200 text-base md:text-lg font-medium">Design System in UI Design — <span
-                            class="text-neutral-200">MySkill</span></span>
-                </div>
-                <div
-                    class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-4 border-b border-neutral-900 cert-item reveal-text">
-                    <span class="text-xs text-neutral-200 font-medium tracking-wider shrink-0 w-auto md:w-32">Nov
-                        2023</span>
-                    <span class="text-neutral-200 text-base md:text-lg font-medium">Wireframing in UI/UX Design — <span
-                            class="text-neutral-200">MySkill</span></span>
-                </div>
-                <div
-                    class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-4 border-b border-neutral-900 cert-item reveal-text">
-                    <span class="text-xs text-neutral-200 font-medium tracking-wider shrink-0 w-auto md:w-32">Sep
-                        2023</span>
-                    <span class="text-neutral-200 text-base md:text-lg font-medium">UX Research — <span
-                            class="text-neutral-200">MySkill</span></span>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ══════════ 9. CONTACT ══════════ -->
-        <section id="contact" class="min-h-screen flex flex-col items-center justify-center px-6 relative">
-            <div id="contact-word"
-                class="text-[clamp(4rem,18vw,16rem)] font-black tracking-tighter cursor-pointer select-none leading-none">
-                <span class="contact-letter">H</span><span class="contact-letter">A</span><span
-                    class="contact-letter">L</span><span class="contact-letter">L</span><span
-                    class="contact-letter">O</span>
-            </div>
-            <p class="text-xs text-neutral-200 tracking-widest uppercase mt-6 reveal-text">Klik untuk kontak</p>
-
-            <div id="contact-links"
-                class="absolute inset-0 flex flex-col items-center justify-center gap-5 opacity-0 pointer-events-none transition-all duration-500">
-                <p class="section-label mb-2">Mari Terhubung</p>
-                <div class="flex flex-wrap gap-3 justify-center">
-                    <a href="mailto:firdifirdaus19@gmail.com"
-                        class="inline-block px-6 py-3 border border-neutral-700 rounded-full text-sm font-medium text-neutral-200 hover:text-lemon hover:border-lemon transition-all duration-300 tracking-wider uppercase">✉
-                        Email</a>
-                    <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" rel="noopener"
-                        class="inline-block px-6 py-3 border border-neutral-700 rounded-full text-sm font-medium text-neutral-200 hover:text-lemon hover:border-lemon transition-all duration-300 tracking-wider uppercase">↗
-                        LinkedIn</a>
-                    <a href="tel:+6285716489840"
-                        class="inline-block px-6 py-3 border border-neutral-700 rounded-full text-sm font-medium text-neutral-200 hover:text-lemon hover:border-lemon transition-all duration-300 tracking-wider uppercase">☎
-                        +62 857-1648-9840</a>
-                </div>
-                <p class="text-neutral-200 text-xs mt-4 tracking-wider">firdifirdaus19@gmail.com</p>
-                <p class="text-neutral-200 text-xs mt-1">Klik lagi untuk menutup</p>
-            </div>
-        </section>
-
-
-        <!-- ══════════ BOTTOM MARQUEE ══════════ -->
-        <div class="overflow-hidden py-5 border-t border-neutral-800 select-none">
-            <div class="marquee-track-reverse">
-                <span
-                    class="text-[clamp(1rem,2.5vw,2rem)] font-light tracking-[0.3em] text-neutral-800 whitespace-nowrap px-4 uppercase">
-                    UI/UX Design — Front-End Development — Digital Creative — Metaverse — Branding — Research — UI/UX
-                    Design — Front-End Development — Digital Creative — Metaverse — Branding — Research —&nbsp;
+                <!-- Cursive accent -->
+                <span class="font-condiment text-neon text-[clamp(1.5rem,4vw,3rem)] absolute -right-2 md:right-4 bottom-2 md:bottom-4 -rotate-1 mix-blend-exclusion opacity-90 pointer-events-none">
+                    Portfolio 2026
                 </span>
-                <span
-                    class="text-[clamp(1rem,2.5vw,2rem)] font-light tracking-[0.3em] text-neutral-800 whitespace-nowrap px-4 uppercase">
-                    UI/UX Design — Front-End Development — Digital Creative — Metaverse — Branding — Research — UI/UX
-                    Design — Front-End Development — Digital Creative — Metaverse — Branding — Research —&nbsp;
-                </span>
+            </div>
+
+            <!-- Role subtitle -->
+            <p class="font-grotesk text-cream/60 text-[clamp(0.7rem,1.5vw,0.9rem)] uppercase tracking-[0.4em] mt-6 lg:ml-16">
+                UI/UX Designer · Front-End Developer · Digital Creative
+            </p>
+
+            <!-- Social icons mobile -->
+            <div class="flex gap-3 mt-8 lg:hidden justify-center">
+                <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                </a>
             </div>
         </div>
 
-        <!-- FOOTER -->
-        <footer
-            class="px-6 md:px-12 py-10 border-t border-neutral-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-xs text-neutral-200">© 2026 FIRDAUS FIRMANSYAH</p>
-            <p class="text-xs text-neutral-200 tracking-widest uppercase">Kinetic Typography Edition</p>
-            <p class="text-xs text-neutral-200">DKI Jakarta, Indonesia</p>
-        </footer>
-    </main>
+        <!-- Social icons desktop -->
+        <div class="hidden lg:flex flex-col gap-3 fixed top-32 right-16 z-40">
+            <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="liquid-glass w-14 h-14 rounded-[1rem] flex items-center justify-center hover:bg-white/10 transition-colors text-cream">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+            </a>
+        </div>
+    </section>
 
 
-    <!-- ═══════════ JAVASCRIPT ═══════════ -->
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
+    <!-- ══════ 2. ABOUT ══════ -->
+    <section id="about" class="video-section min-h-screen flex items-center">
+        <video class="video-bg" autoplay loop muted playsinline>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_151551_992053d1-3d3e-4b8c-abac-45f22158f411.mp4" type="video/mp4">
+        </video>
 
-        const loader = document.getElementById('loader');
-        const loaderText = document.getElementById('loader-text');
-        const loaderSub = document.getElementById('loader-sub');
-        const mainContent = document.getElementById('main-content');
-        const sideNav = document.getElementById('side-nav');
+        <div class="relative z-10 max-w-[1831px] mx-auto w-full px-5 md:px-10 lg:px-16 py-16 md:py-24">
+            <!-- Top row -->
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-16 items-start">
+                <!-- Heading -->
+                <div class="relative">
+                    <h2 class="font-grotesk text-[clamp(2rem,6vw,3.75rem)] uppercase leading-[1.1] text-cream reveal-text">
+                        Hello!<br>I'm Firdaus
+                    </h2>
+                    <span class="font-condiment text-neon text-[clamp(2rem,5vw,4.25rem)] absolute -bottom-2 -right-4 md:right-0 rotate-[-2deg] mix-blend-exclusion opacity-90 pointer-events-none">
+                        Firmansyah
+                    </span>
+                </div>
 
-        // ────────────── LOADER ──────────────
-        function runLoader() {
-            const words = ['FIRDAUS', 'FIRMANSYAH', 'UI/UX', 'PORTFOLIO'];
-            const subs = ['', '', 'DESIGNER', '2026'];
-            let i = 0;
+                <!-- Intro paragraph -->
+                <p class="font-mono text-cream text-[14px] md:text-[16px] uppercase leading-relaxed max-w-[320px] reveal-text">
+                    A creative technologist crafting digital experiences at the intersection of design and code.
+                    Passionate about user-centered solutions and visual storytelling.
+                </p>
+            </div>
 
-            const tl = gsap.timeline({
-                onComplete: () => {
-                    gsap.to(loader, {
-                        yPercent: -100,
-                        duration: 0.9,
-                        ease: 'power4.inOut',
-                        onComplete: () => {
-                            loader.style.display = 'none';
-                            showMain();
-                        }
-                    });
+            <!-- Bio section -->
+            <div class="mt-16 md:mt-24 max-w-4xl reveal-text">
+                <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-6">01 — Tentang Saya</p>
+                <p class="text-lg md:text-2xl lg:text-3xl font-inter font-light leading-relaxed text-cream/80">
+                    Mahasiswa <span class="keyword">Teknik Informatika</span> semester 6 di UHAMKA dengan ketertarikan kuat dalam
+                    <span class="keyword">UI/UX Design</span>, <span class="keyword">Front-End Development</span>, dan konten kreatif digital.
+                    Dipercaya oleh universitas sebagai bagian dari Tim Project resmi untuk mengembangkan
+                    <span class="keyword">virtual environment (Metaverse)</span> kampus di platform Roblox.
+                </p>
+                <p class="text-lg md:text-2xl lg:text-3xl font-inter font-light leading-relaxed text-cream/80 mt-6">
+                    Aktif dalam <span class="keyword">Core Team DSC UHAMKA</span> sebagai UI/UX Designer.
+                    Berpengalaman sebagai <span class="keyword">pembicara workshop</span>,
+                    <span class="keyword">content editor</span>, dan <span class="keyword">penulis jurnal nasional</span>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════ 3. EDUCATION ══════ -->
+    <section id="education" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">02 — Pendidikan</p>
+
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2023</div>
+            <div>
+                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">S1 Teknik Informatika</div>
+                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Universitas Muhammadiyah Prof. Dr. Hamka (UHAMKA)</div>
+                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">2023 – Sekarang</div>
+            </div>
+        </div>
+
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2020</div>
+            <div>
+                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">SMK 3 Perguruan Cikini</div>
+                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Jurusan Multimedia</div>
+                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">2020 – 2023</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════ 4. EXPERIENCE ══════ -->
+    <section id="experience" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">03 — Pengalaman Profesional</p>
+
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2025</div>
+            <div>
+                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">UI/UX & Asset Designer</div>
+                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Tim Project Program Roblox UHAMKA — Penugasan Resmi Wakil Rektor IV</div>
+                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Okt 2025 – Jan 2026</div>
+            </div>
+        </div>
+
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2024</div>
+            <div>
+                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">Graphic Design & Editor Konten</div>
+                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Tim Promosi FTII UHAMKA — Magang</div>
+                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Aug 2024 – Aug 2026</div>
+            </div>
+        </div>
+
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2024</div>
+            <div>
+                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">Petugas KPPS</div>
+                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Komisi Pemilihan Umum (KPU) — Paruh Waktu</div>
+                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Jan – Feb 2024</div>
+            </div>
+        </div>
+
+        <div class="timeline-row flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-12 py-8 border-b border-white/5 reveal-text cursor-default">
+            <div class="timeline-year shrink-0 w-auto md:w-64 md:text-right">2022</div>
+            <div>
+                <div class="text-xl md:text-2xl font-grotesk uppercase text-cream/80 timeline-detail transition-colors duration-300">PKL — Rainbow Foto Studio</div>
+                <div class="text-sm text-cream/40 mt-1 font-mono timeline-detail transition-colors duration-300">Praktik Kerja Lapangan</div>
+                <div class="text-xs text-cream/25 mt-2 font-mono timeline-detail transition-colors duration-300">Jul – Sep 2022</div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════ 5. PROJECTS (NFT-style grid) ══════ -->
+    <section id="projects" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+        <!-- Header Row -->
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12 md:mb-16">
+            <div class="reveal-text">
+                <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-6">04 — Proyek</p>
+                <h2 class="font-grotesk text-[clamp(2rem,5vw,3.75rem)] uppercase leading-[1.1] text-cream">
+                    Collection of<br>
+                    <span class="ml-12 md:ml-24 lg:ml-32"><span class="font-condiment text-neon normal-case">Creative</span> Projects</span>
+                </h2>
+            </div>
+            <div class="reveal-text">
+                <div class="flex items-end gap-2 font-grotesk uppercase text-cream cursor-pointer group">
+                    <span class="text-[clamp(2rem,4vw,3.75rem)] leading-none">8</span>
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-[clamp(1rem,2vw,2rem)]">Total</span>
+                        <span class="text-[clamp(1rem,2vw,2rem)]">Projects</span>
+                    </div>
+                </div>
+                <div class="h-[6px] md:h-[8px] lg:h-[10px] bg-neon rounded-full w-full mt-2"></div>
+            </div>
+        </div>
+
+        <!-- Project Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1 -->
+            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_053923_22c0a6a5-313c-474c-85ff-3b50d25e944a.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                    <div>
+                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">Official Website GDSC UHAMKA</p>
+                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">UI/UX Design · Mobile-First · Material Design</p>
+                    </div>
+                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_054411_511c1b7a-fb2f-42ef-bf6c-32c0b1a06e79.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                    <div>
+                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">Roblox UHAMKA Beta</p>
+                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">GUI & Asset Design · Virtual Campus · Metaverse</p>
+                    </div>
+                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline>
+                        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055427_ac7035b5-9f3b-4289-86fc-941b2432317d.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                    <div>
+                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">OLU UHAMKA Redesign</p>
+                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">UX Research · Mobile App · Jurnal Nasional</p>
+                    </div>
+                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/60 via-bg to-neon/10 flex items-center justify-center">
+                        <span class="font-grotesk text-cream/20 text-4xl uppercase">Hydra</span>
+                    </div>
+                </div>
+                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                    <div>
+                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"Hydra" Water Reminder App</p>
+                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">End-to-end UI/UX · Personalized Onboarding</p>
+                    </div>
+                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/60 via-bg to-blue-500/10 flex items-center justify-center">
+                        <span class="font-grotesk text-cream/20 text-4xl uppercase">Ammar</span>
+                    </div>
+                </div>
+                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                    <div>
+                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"Ammar Barbershop" Booking</p>
+                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">Web App · Dark Theme · Gold Accents</p>
+                    </div>
+                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="project-card liquid-glass rounded-[32px] p-[18px]">
+                <div class="relative pb-[70%] rounded-[24px] overflow-hidden bg-white/5">
+                    <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/60 via-bg to-neon/10 flex items-center justify-center">
+                        <span class="font-grotesk text-cream/20 text-4xl uppercase">LexiPlay</span>
+                    </div>
+                </div>
+                <div class="liquid-glass rounded-[20px] px-5 py-4 mt-3 flex items-center justify-between">
+                    <div>
+                        <p class="project-title font-grotesk text-cream text-sm uppercase transition-colors">"LexiPlay" Inclusive Literacy</p>
+                        <p class="text-[11px] text-cream/50 font-mono mt-0.5">EdTech · Accessibility · Gamification</p>
+                    </div>
+                    <div class="project-arrow w-12 h-12 rounded-full bg-gradient-to-br from-[#b724ff] to-[#7c3aed] flex items-center justify-center shadow-lg shadow-purple-500/50 transition-transform shrink-0 ml-3">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ══════ 6. ORGS & AWARDS ══════ -->
+    <section id="orgs" class="bg-bg py-20 md:py-32 overflow-hidden">
+        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 px-5 md:px-10 reveal-text">05 — Organisasi & Penghargaan</p>
+
+        <div class="space-y-3 reveal-text mb-16">
+            <div class="overflow-hidden">
+                <div class="org-row org-row-left">
+                    <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
+                    <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
+                    <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
+                    <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
+                    <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
+                    <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
+                    <span class="org-item">Core Team DSC UHAMKA</span><span class="org-separator">◆</span>
+                    <span class="org-item">UI/UX Designer (The Pixels)</span><span class="org-separator">◆</span>
+                    <span class="org-item">Digital Creative</span><span class="org-separator">◆</span>
+                    <span class="org-item">Ketua Karang Taruna RT</span><span class="org-separator">◆</span>
+                    <span class="org-item">Pemateri Crash Course UI/UX</span><span class="org-separator">◆</span>
+                    <span class="org-item">Pemateri Workshop HIMA TI</span><span class="org-separator">◆</span>
+                </div>
+            </div>
+            <div class="overflow-hidden">
+                <div class="org-row org-row-right">
+                    <span class="org-item">Juara 1 Desain Terbaik GDGOC</span><span class="org-separator">●</span>
+                    <span class="org-item">Juara 2 Sayembara Logo FTII</span><span class="org-separator">●</span>
+                    <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
+                    <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
+                    <span class="org-item">HAKI Video Edukasi</span><span class="org-separator">●</span>
+                    <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span class="org-separator">●</span>
+                    <span class="org-item">Juara 1 Desain Terbaik GDGOC</span><span class="org-separator">●</span>
+                    <span class="org-item">Juara 2 Sayembara Logo FTII</span><span class="org-separator">●</span>
+                    <span class="org-item">Juara 1 Konten TikTok UHAMKA</span><span class="org-separator">●</span>
+                    <span class="org-item">HAKI Buku "Pengantar TI"</span><span class="org-separator">●</span>
+                    <span class="org-item">HAKI Video Edukasi</span><span class="org-separator">●</span>
+                    <span class="org-item">Kelompok Terbaik Workshop UI/UX</span><span class="org-separator">●</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed awards -->
+        <div class="max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 space-y-1">
+            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 1 Desain Terbaik — Seminar UI/UX Deep Dive (GDGOC STT NF) — Des 2024</div>
+            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 2 Sayembara Logo Milad FTII ke-27 — Maret 2024</div>
+            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🏆 Juara 1 Konten TikTok Baitul Arqom UHAMKA — Okt 2023</div>
+            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">📘 HAKI Buku "Pengantar TI" — ISBN: 978-623-10-3247-8 — Sep 2024</div>
+            <div class="text-cream/50 text-sm font-mono py-3 border-b border-white/5 cert-item reveal-text">🎬 HAKI Video Edukasi Peternakan Ikan — Okt 2024</div>
+        </div>
+    </section>
+
+
+    <!-- ══════ 7. SKILLS ══════ -->
+    <section id="skills" class="bg-bg py-20 md:py-32 overflow-hidden">
+        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 px-5 md:px-10 reveal-text">06 — Keahlian</p>
+
+        <p class="text-cream/25 font-mono text-[10px] uppercase tracking-widest px-5 md:px-10 mb-5 reveal-text">Hard Skills</p>
+        <div class="space-y-3 mb-14 reveal-text">
+            <div class="overflow-hidden">
+                <div class="skills-row skills-row-left">
+                    <span class="skill-tag liquid-glass rounded-full">Figma</span>
+                    <span class="skill-tag liquid-glass rounded-full">Adobe Illustrator</span>
+                    <span class="skill-tag liquid-glass rounded-full">Wireframing</span>
+                    <span class="skill-tag liquid-glass rounded-full">Prototyping</span>
+                    <span class="skill-tag liquid-glass rounded-full">Design System</span>
+                    <span class="skill-tag liquid-glass rounded-full">HTML</span>
+                    <span class="skill-tag liquid-glass rounded-full">CSS</span>
+                    <span class="skill-tag liquid-glass rounded-full">JavaScript</span>
+                    <span class="skill-tag liquid-glass rounded-full">Figma</span>
+                    <span class="skill-tag liquid-glass rounded-full">Adobe Illustrator</span>
+                    <span class="skill-tag liquid-glass rounded-full">Wireframing</span>
+                    <span class="skill-tag liquid-glass rounded-full">Prototyping</span>
+                    <span class="skill-tag liquid-glass rounded-full">Design System</span>
+                    <span class="skill-tag liquid-glass rounded-full">HTML</span>
+                    <span class="skill-tag liquid-glass rounded-full">CSS</span>
+                    <span class="skill-tag liquid-glass rounded-full">JavaScript</span>
+                </div>
+            </div>
+            <div class="overflow-hidden">
+                <div class="skills-row skills-row-right">
+                    <span class="skill-tag liquid-glass rounded-full">Roblox Studio</span>
+                    <span class="skill-tag liquid-glass rounded-full">CapCut</span>
+                    <span class="skill-tag liquid-glass rounded-full">Microsoft Office</span>
+                    <span class="skill-tag liquid-glass rounded-full">Visual Content Editing</span>
+                    <span class="skill-tag liquid-glass rounded-full">User Research</span>
+                    <span class="skill-tag liquid-glass rounded-full">Design Thinking</span>
+                    <span class="skill-tag liquid-glass rounded-full">Roblox Studio</span>
+                    <span class="skill-tag liquid-glass rounded-full">CapCut</span>
+                    <span class="skill-tag liquid-glass rounded-full">Microsoft Office</span>
+                    <span class="skill-tag liquid-glass rounded-full">Visual Content Editing</span>
+                    <span class="skill-tag liquid-glass rounded-full">User Research</span>
+                    <span class="skill-tag liquid-glass rounded-full">Design Thinking</span>
+                </div>
+            </div>
+            <div class="overflow-hidden">
+                <div class="skills-row skills-row-fast">
+                    <span class="skill-tag liquid-glass rounded-full">Mobile-First Design</span>
+                    <span class="skill-tag liquid-glass rounded-full">Material Design</span>
+                    <span class="skill-tag liquid-glass rounded-full">Responsive Web</span>
+                    <span class="skill-tag liquid-glass rounded-full">Accessibility (a11y)</span>
+                    <span class="skill-tag liquid-glass rounded-full">Inclusive Design</span>
+                    <span class="skill-tag liquid-glass rounded-full">Gamification</span>
+                    <span class="skill-tag liquid-glass rounded-full">Mobile-First Design</span>
+                    <span class="skill-tag liquid-glass rounded-full">Material Design</span>
+                    <span class="skill-tag liquid-glass rounded-full">Responsive Web</span>
+                    <span class="skill-tag liquid-glass rounded-full">Accessibility (a11y)</span>
+                    <span class="skill-tag liquid-glass rounded-full">Inclusive Design</span>
+                    <span class="skill-tag liquid-glass rounded-full">Gamification</span>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-cream/25 font-mono text-[10px] uppercase tracking-widest px-5 md:px-10 mb-5 reveal-text">Soft Skills</p>
+        <div class="space-y-3 reveal-text">
+            <div class="overflow-hidden">
+                <div class="skills-row skills-row-right" style="animation-duration:38s">
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Manajemen Waktu</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Cross-functional Teamwork</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Public Speaking</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Berpikir Kritis</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Komunikasi Efektif</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Problem Solving</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Manajemen Waktu</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Cross-functional Teamwork</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Public Speaking</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Berpikir Kritis</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Komunikasi Efektif</span>
+                    <span class="skill-tag liquid-glass rounded-full" style="color:rgba(111,255,0,0.4)">Problem Solving</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════ 8. CERTIFICATIONS ══════ -->
+    <section id="certs" class="bg-bg max-w-[1831px] mx-auto px-5 md:px-10 lg:px-16 py-20 md:py-32">
+        <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em] mb-16 reveal-text">07 — Sertifikasi</p>
+
+        <div class="space-y-1">
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Mar 2025</span>
+                <span class="text-cream/70 text-base font-inter font-medium">UX Fundamentals — <span class="text-cream/40">IBM SkillsBuild</span></span>
+            </div>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Des 2024</span>
+                <span class="text-cream/70 text-base font-inter font-medium">UI/UX Deep Dive — <span class="text-cream/40">GDGOC STT NF</span></span>
+            </div>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Des 2023</span>
+                <span class="text-cream/70 text-base font-inter font-medium">Design System in UI Design — <span class="text-cream/40">MySkill</span></span>
+            </div>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Nov 2023</span>
+                <span class="text-cream/70 text-base font-inter font-medium">Wireframing in UI/UX Design — <span class="text-cream/40">MySkill</span></span>
+            </div>
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-2 md:gap-8 py-5 border-b border-white/5 cert-item reveal-text">
+                <span class="text-xs text-cream/30 font-mono tracking-wider shrink-0 w-auto md:w-28">Sep 2023</span>
+                <span class="text-cream/70 text-base font-inter font-medium">UX Research — <span class="text-cream/40">MySkill</span></span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════ 9. CONTACT (CTA - Video BG) ══════ -->
+    <section id="contact" class="video-section relative">
+        <video class="w-full h-auto block" autoplay loop muted playsinline>
+            <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055729_72d66327-b59e-4ae9-bb70-de6ccb5ecdb0.mp4" type="video/mp4">
+        </video>
+
+        <!-- CTA Overlay -->
+        <div class="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[15%] px-5">
+            <div class="relative text-right">
+                <span class="font-condiment text-neon text-[clamp(1.2rem,4vw,4rem)] absolute -top-8 md:-top-12 left-0 mix-blend-exclusion opacity-90 pointer-events-none">
+                    Get in touch
+                </span>
+                <div id="contact-word" class="font-grotesk text-cream text-[clamp(1.5rem,5vw,3.75rem)] uppercase leading-[1.15] cursor-pointer select-none">
+                    <span class="contact-letter block mb-3 md:mb-8">Let's Connect.</span>
+                    <span class="contact-letter block">Reveal What's</span>
+                    <span class="contact-letter block">Hidden.</span>
+                    <span class="contact-letter block">Follow The Signal.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact links overlay -->
+        <div id="contact-links" class="absolute inset-0 flex flex-col items-center justify-center gap-5 opacity-0 pointer-events-none transition-all duration-500 z-20">
+            <p class="text-cream/40 font-mono text-xs uppercase tracking-[0.3em]">Mari Terhubung</p>
+            <div class="flex flex-wrap gap-3 justify-center">
+                <a href="mailto:firdifirdaus19@gmail.com" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">✉ Email</a>
+                <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" rel="noopener" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">↗ LinkedIn</a>
+                <a href="tel:+6285716489840" class="liquid-glass rounded-full px-6 py-3 text-cream/80 text-sm font-mono uppercase tracking-wider hover:text-neon hover:bg-white/10 transition-all duration-300">☎ +62 857-1648-9840</a>
+            </div>
+            <p class="text-cream/30 font-mono text-xs">firdifirdaus19@gmail.com</p>
+            <p class="text-cream/20 font-mono text-[10px] mt-2 cursor-pointer hover:text-neon transition-colors">Klik di mana saja untuk menutup</p>
+        </div>
+
+        <!-- Social icons bottom-left -->
+        <div class="absolute left-[5%] md:left-[8%] bottom-[8%] md:bottom-[15%] z-10 hidden lg:block">
+            <div class="liquid-glass rounded-[1.25rem] flex flex-col">
+                <a href="mailto:firdifirdaus19@gmail.com" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors border-b border-white/10">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </a>
+                <a href="https://www.linkedin.com/in/firdaus-firmansyah-2027352a1/" target="_blank" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors border-b border-white/10">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+                <a href="https://github.com/Firdaus-Firmansyah" target="_blank" class="w-16 h-16 flex items-center justify-center text-cream hover:bg-white/10 transition-colors">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="bg-bg px-5 md:px-10 lg:px-16 py-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 max-w-[1831px] mx-auto">
+        <span class="font-grotesk text-cream/40 text-xs uppercase">© 2026 Firdaus Firmansyah</span>
+        <span class="font-condiment text-neon/40 text-lg">Liquid Glass Edition</span>
+        <span class="font-mono text-cream/30 text-[10px] uppercase tracking-wider">DKI Jakarta, Indonesia</span>
+    </footer>
+
+</main>
+
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const loader = document.getElementById('loader');
+    const loaderText = document.getElementById('loader-text');
+    const loaderSub = document.getElementById('loader-sub');
+    const mainContent = document.getElementById('main-content');
+    const sideNav = document.getElementById('side-nav');
+
+    // ─── LOADER ───
+    function runLoader() {
+        const words = ['FIRDAUS', 'FIRMANSYAH', 'UI/UX', 'PORTFOLIO'];
+        const subs = ['', '', 'Designer', '2026'];
+
+        const tl = gsap.timeline({
+            onComplete: () => {
+                gsap.to(loader, {
+                    yPercent: -100,
+                    duration: 0.9,
+                    ease: 'power4.inOut',
+                    onComplete: () => {
+                        loader.style.display = 'none';
+                        showMain();
+                    }
+                });
+            }
+        });
+
+        words.forEach((word, idx) => {
+            tl.to({}, {
+                duration: 0.05,
+                onStart: () => {
+                    loaderText.textContent = word;
+                    loaderSub.textContent = subs[idx];
+                },
+            })
+            .fromTo(loaderText, { opacity: 0, scale: 0.92 }, {
+                opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out',
+            })
+            .to(loaderText, {
+                opacity: 0, scale: 0.96, duration: 0.25, ease: 'power2.in', delay: 0.15
+            });
+        });
+    }
+
+    // ─── SHOW MAIN ───
+    function showMain() {
+        mainContent.style.display = 'block';
+        window.scrollTo(0, 0);
+
+        gsap.to('#hero-name .reveal-char', {
+            opacity: 1, y: 0,
+            duration: 0.5, stagger: 0.04,
+            ease: 'power3.out', delay: 0.15,
+        });
+
+        gsap.to(sideNav, { opacity: 1, duration: 0.6, delay: 0.8 });
+
+        setupScrollReveal();
+        setupNavDots();
+        setupContactReveal();
+        setupSmoothScroll();
+    }
+
+    // ─── SCROLL REVEAL ───
+    function setupScrollReveal() {
+        document.querySelectorAll('.reveal-text').forEach(el => {
+            gsap.fromTo(el,
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1, y: 0,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: el,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none',
+                    }
                 }
-            });
+            );
+        });
+    }
 
-            words.forEach((word, idx) => {
-                tl.to({}, {
-                    duration: 0.05,
-                    onStart: () => {
-                        loaderText.textContent = word;
-                        loaderSub.textContent = subs[idx];
-                    },
-                })
-                    .fromTo(loaderText, { opacity: 0, scale: 0.92 }, {
-                        opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out',
-                    })
-                    .to(loaderText, {
-                        opacity: 0, scale: 0.96, duration: 0.25, ease: 'power2.in', delay: 0.15
-                    });
+    // ─── NAV DOTS ───
+    function setupNavDots() {
+        const dots = document.querySelectorAll('.nav-dot');
+        const sections = ['hero', 'about', 'education', 'experience', 'projects', 'orgs', 'skills', 'certs', 'contact'];
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const target = document.getElementById(dot.dataset.target);
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
+        });
+
+        sections.forEach((id, idx) => {
+            const section = document.getElementById(id);
+            if (!section) return;
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top center',
+                end: 'bottom center',
+                onEnter: () => setActiveDot(idx),
+                onEnterBack: () => setActiveDot(idx),
+            });
+        });
+
+        function setActiveDot(idx) {
+            dots.forEach(d => d.classList.remove('active'));
+            if (dots[idx]) dots[idx].classList.add('active');
         }
+    }
 
-        // ────────────── SHOW MAIN ──────────────
-        function showMain() {
-            mainContent.style.display = 'block';
-            window.scrollTo(0, 0);
+    // ─── CONTACT REVEAL ───
+    function setupContactReveal() {
+        const contactWord = document.getElementById('contact-word');
+        const contactLinks = document.getElementById('contact-links');
+        if (!contactWord || !contactLinks) return;
 
-            // Hero character stagger
-            gsap.to('#hero-name .reveal-char', {
-                opacity: 1,
-                y: 0,
-                duration: 0.5,
-                stagger: 0.04,
-                ease: 'power3.out',
-                delay: 0.15,
-            });
+        let expanded = false;
 
-            // Fade in side nav
-            gsap.to(sideNav, { opacity: 1, duration: 0.6, delay: 0.8 });
-
-            // Setup all scroll animations
-            setupScrollReveal();
-            setupNavDots();
-            setupContactReveal();
-        }
-
-        // ────────────── SCROLL REVEAL ──────────────
-        function setupScrollReveal() {
-            document.querySelectorAll('.reveal-text').forEach(el => {
-                gsap.fromTo(el,
-                    { opacity: 0, y: 50 },
-                    {
-                        opacity: 1, y: 0,
-                        duration: 0.8,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 88%',
-                            toggleActions: 'play none none none',
-                        }
-                    }
-                );
-            });
-
-            document.querySelectorAll('.reveal-line').forEach(el => {
-                gsap.fromTo(el,
-                    { opacity: 0, x: -40 },
-                    {
-                        opacity: 1, x: 0,
-                        duration: 0.7,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: el,
-                            start: 'top 88%',
-                            toggleActions: 'play none none none',
-                        }
-                    }
-                );
-            });
-        }
-
-        // ────────────── NAV DOTS ──────────────
-        function setupNavDots() {
-            const dots = document.querySelectorAll('.nav-dot');
-            const sections = ['hero', 'about', 'education', 'experience', 'projects', 'orgs', 'skills', 'certs', 'contact'];
-
-            // Click to scroll
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const target = document.getElementById(dot.dataset.target);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            });
-
-            // Update active dot on scroll
-            sections.forEach((id, idx) => {
-                const section = document.getElementById(id);
-                if (!section) return;
-
-                ScrollTrigger.create({
-                    trigger: section,
-                    start: 'top center',
-                    end: 'bottom center',
-                    onEnter: () => setActiveDot(idx),
-                    onEnterBack: () => setActiveDot(idx),
-                });
-            });
-
-            function setActiveDot(idx) {
-                dots.forEach(d => d.classList.remove('active'));
-                if (dots[idx]) dots[idx].classList.add('active');
+        function toggleContact() {
+            expanded = !expanded;
+            if (expanded) {
+                contactWord.classList.add('contact-expanded');
+                gsap.to(contactLinks, { opacity: 1, duration: 0.5, ease: 'power2.out' });
+                contactLinks.style.pointerEvents = 'auto';
+            } else {
+                contactWord.classList.remove('contact-expanded');
+                gsap.to(contactLinks, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+                contactLinks.style.pointerEvents = 'none';
             }
         }
 
-        // ────────────── CONTACT REVEAL ──────────────
-        function setupContactReveal() {
-            const contactWord = document.getElementById('contact-word');
-            const contactLinks = document.getElementById('contact-links');
-            if (!contactWord || !contactLinks) return;
+        contactWord.addEventListener('click', () => { if (!expanded) toggleContact(); });
+        contactLinks.addEventListener('click', (e) => { if (e.target.tagName !== 'A' && expanded) toggleContact(); });
+    }
 
-            let expanded = false;
-
-            function toggleContact() {
-                expanded = !expanded;
-                if (expanded) {
-                    contactWord.classList.add('contact-expanded');
-                    gsap.to(contactLinks, { opacity: 1, duration: 0.5, ease: 'power2.out' });
-                    contactLinks.style.pointerEvents = 'auto';
-                } else {
-                    contactWord.classList.remove('contact-expanded');
-                    gsap.to(contactLinks, { opacity: 0, duration: 0.3, ease: 'power2.in' });
-                    contactLinks.style.pointerEvents = 'none';
-                }
-            }
-
-            contactWord.addEventListener('click', () => {
-                if (!expanded) toggleContact();
+    // ─── SMOOTH SCROLL NAV ───
+    function setupSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
+        });
+    }
 
-            contactLinks.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'A' && expanded) toggleContact();
-            });
-        }
-
-        // ────────────── INIT ──────────────
-        window.addEventListener('DOMContentLoaded', runLoader);
-    </script>
+    // ─── INIT ───
+    window.addEventListener('DOMContentLoaded', runLoader);
+</script>
 
 </body>
-
 </html>
