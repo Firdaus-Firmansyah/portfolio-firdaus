@@ -97,6 +97,7 @@ function showMain() {
     setupNavDots();
     setupContactReveal();
     setupSmoothScroll();
+    setupMobileMenu();
 }
 
 
@@ -226,6 +227,47 @@ function setupSmoothScroll() {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
+    });
+}
+
+
+// ═══════════════════════════════════════
+// 7. MOBILE MENU — Toggle logic for mobile dropdown
+// ═══════════════════════════════════════
+function setupMobileMenu() {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const links = document.querySelectorAll('.mobile-link');
+    let isOpen = false;
+
+    if (!btn || !menu) return;
+
+    function toggleMenu() {
+        isOpen = !isOpen;
+        if (isOpen) {
+            menu.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+            menu.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            btn.classList.add('bg-white/10', 'text-neon');
+        } else {
+            menu.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+            menu.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            btn.classList.remove('bg-white/10', 'text-neon');
+        }
+    }
+
+    btn.addEventListener('click', toggleMenu);
+
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            if (isOpen) toggleMenu();
+        });
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (isOpen && !menu.contains(e.target) && !btn.contains(e.target)) {
+            toggleMenu();
+        }
     });
 }
 
