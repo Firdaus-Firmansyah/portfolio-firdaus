@@ -22,11 +22,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 // ─── DOM References ───
-const loader     = document.getElementById('loader');
+const loader = document.getElementById('loader');
 const loaderText = document.getElementById('loader-text');
-const loaderSub  = document.getElementById('loader-sub');
+const loaderSub = document.getElementById('loader-sub');
 const mainContent = document.getElementById('main-content');
-const sideNav    = document.getElementById('side-nav');
+const sideNav = document.getElementById('side-nav');
 
 
 // ═══════════════════════════════════════
@@ -34,7 +34,7 @@ const sideNav    = document.getElementById('side-nav');
 // ═══════════════════════════════════════
 function runLoader() {
     const words = ['FIRDAUS', 'FIRMANSYAH', 'UI/UX', 'PORTFOLIO'];
-    const subs  = ['', '', 'Designer', '2026'];
+    const subs = ['', '', 'Designer', '2026'];
 
     const tl = gsap.timeline({
         onComplete: () => {
@@ -60,14 +60,14 @@ function runLoader() {
                 loaderSub.textContent = subs[idx];
             },
         })
-        .fromTo(loaderText,
-            { opacity: 0, scale: 0.92 },
-            { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' }
-        )
-        .to(loaderText, {
-            opacity: 0, scale: 0.96,
-            duration: 0.25, ease: 'power2.in', delay: 0.15
-        });
+            .fromTo(loaderText,
+                { opacity: 0, scale: 0.92 },
+                { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' }
+            )
+            .to(loaderText, {
+                opacity: 0, scale: 0.96,
+                duration: 0.25, ease: 'power2.in', delay: 0.15
+            });
     });
 }
 
@@ -178,7 +178,7 @@ function setupNavDots() {
 //    Click overlay area → close it
 // ═══════════════════════════════════════
 function setupContactReveal() {
-    const contactWord  = document.getElementById('contact-word');
+    const contactWord = document.getElementById('contact-word');
     const contactLinks = document.getElementById('contact-links');
     if (!contactWord || !contactLinks) return;
 
@@ -273,6 +273,60 @@ function setupMobileMenu() {
 
 
 // ═══════════════════════════════════════
+// 8. LANGUAGE SWITCHER — Toggle ID/EN
+// ═══════════════════════════════════════
+function setupLanguageSwitcher() {
+    const langBtns = document.querySelectorAll('.lang-btn');
+    if (!langBtns.length || typeof translations === 'undefined') return;
+
+    // Default language is 'id', or what's in localStorage
+    let currentLang = localStorage.getItem('portfolio-lang') || 'id';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('portfolio-lang', lang);
+
+        // Update active class on buttons
+        langBtns.forEach(btn => {
+            if (btn.dataset.lang === lang) {
+                btn.classList.remove('text-cream/40');
+                btn.classList.add('text-cream'); // active state
+            } else {
+                btn.classList.add('text-cream/40');
+                btn.classList.remove('text-cream'); // inactive state
+            }
+        });
+
+        // Update text content for elements with data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[key] && translations[key][lang]) {
+                el.innerHTML = translations[key][lang];
+            }
+        });
+    }
+
+    // Attach event listeners
+    langBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const lang = btn.dataset.lang;
+            if (lang !== currentLang) {
+                setLanguage(lang);
+            }
+        });
+    });
+
+    // Initial setup
+    setLanguage(currentLang);
+}
+
+
+// ═══════════════════════════════════════
 // INIT — Start loader on DOM ready
 // ═══════════════════════════════════════
-window.addEventListener('DOMContentLoaded', runLoader);
+window.addEventListener('DOMContentLoaded', () => {
+    runLoader();
+    setupLanguageSwitcher(); // Initialize immediately so text is correct before loader finishes
+});
+
